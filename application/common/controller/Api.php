@@ -193,7 +193,7 @@ class Api
      * @return void
      * @throws HttpResponseException
      */
-    protected function result($msg, $data = null, $code = 0, $type = null, array $header = [])
+    protected function result($msg, $data = [], $code = 0, $type = null, array $header = [])
     {
         $result = [
             'code' => $code,
