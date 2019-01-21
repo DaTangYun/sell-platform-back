@@ -25,5 +25,4 @@ class Carousel extends Api
     		$this->success('请求成功',compact('carousel'));
     	}
     }
-
 }
