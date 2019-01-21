@@ -15,5 +15,4 @@ use think\Model;
 
 class Topline extends Model
 {
-
 }
