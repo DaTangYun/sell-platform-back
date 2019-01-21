@@ -9,7 +9,7 @@ return array (
     'content' => 
     array (
     ),
-    'value' => 'your key',
+    'value' => 'LTAIdqrReZ8QOKs0',
     'rule' => 'required',
     'msg' => '',
     'tip' => '',
@@ -24,7 +24,7 @@ return array (
     'content' => 
     array (
     ),
-    'value' => 'your secret',
+    'value' => '7aaBo9jhqase8fj2W974iYpvS0tfQs',
     'rule' => 'required',
     'msg' => '',
     'tip' => '',
@@ -39,7 +39,7 @@ return array (
     'content' => 
     array (
     ),
-    'value' => 'your sign',
+    'value' => '龙秦佳华',
     'rule' => 'required',
     'msg' => '',
     'tip' => '',
@@ -56,8 +56,8 @@ return array (
     ),
     'value' => 
     array (
-      'register' => 'SMS_114000000',
-      'resetpwd' => 'SMS_114000000',
+      'register' => 'SMS_153215055',
+      'resetpwd' => 'SMS_153215054',
       'changepwd' => 'SMS_114000000',
       'profile' => 'SMS_114000000',
     ),

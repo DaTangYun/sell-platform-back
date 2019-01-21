@@ -38,20 +38,22 @@ class User extends Api
      */
     public function login()
     {
-        $account = $this->request->request('account');
-        $password = $this->request->request('password');
-        if (!$account || !$password)
-        {
-            $this->error(__('Invalid parameters'));
-        }
-        $ret = $this->auth->login($account, $password);
-        if ($ret)
-        {
-            $data = ['userinfo' => $this->auth->getUserinfo()];
-            $this->success(__('Logged in successful'), $data);
-        }else
-        {
-            $this->error($this->auth->getError());
+        if ($this->request->isPost()) {
+            $mobile = $this->request->request('mobile');
+            $password = $this->request->request('password');
+            if (!$mobile || !$password)
+            {
+                $this->error(__('Invalid parameters'));
+            }
+            $ret = $this->auth->login($mobile, $password);
+            if ($ret)
+            {
+                $data = ['userinfo' => $this->auth->getUserinfo()];
+                $this->success(__('Logged in successful'), $data);
+            }else
+            {
+                $this->error($this->auth->getError());
+            }
         }
     }
 
@@ -109,31 +111,36 @@ class User extends Api
      */
     public function register()
     {
-        $username = $this->request->request('username');
-        $password = $this->request->request('password');
-        $email = $this->request->request('email');
-        $mobile = $this->request->request('mobile');
-        if (!$username || !$password)
-        {
-            $this->error(__('Invalid parameters'));
-        }
-        if ($email && !Validate::is($email, "email"))
-        {
-            $this->error(__('Email is incorrect'));
-        }
-        if ($mobile && !Validate::regex($mobile, "^1\d{10}$"))
-        {
-            $this->error(__('Mobile is incorrect'));
-        }
-        $ret = $this->auth->register($username, $password, $email, $mobile, []);
-        if ($ret)
-        {
-            $data = ['userinfo' => $this->auth->getUserinfo()];
-            $this->success(__('Sign up successful'), $data);
-        }
-        else
-        {
-            $this->error($this->auth->getError());
+        if ($this->request->isPost()) {
+            $password = $this->request->request('password');
+            $repassword = $this->request->request('repassword');
+            $email = '';
+            $username = $mobile = $this->request->request('mobile');
+            //验证码
+            $captcha = $this->request->request('captcha');
+            if (!$username || !$password || !$repassword){
+                $this->error(__('Invalid parameters'));
+            }
+            if ($mobile && !Validate::regex($mobile, "^1\d{10}$")){
+                $this->error(__('Mobile is incorrect'));
+            }
+            if($password !== $repassword){
+                $this->error('两次密码不一致!');
+            }
+            if ($captcha && !Validate::regex($captcha, "^\d{4}$")) {
+                $this->error('验证码格式错误');
+            }
+            //验证验证码是否错误
+            if (!Sms::check($mobile, $captcha, 'register')){
+                $this->error(__('Captcha is incorrect'));
+            }
+            $ret = $this->auth->register($username, $password, $email, $mobile, []);
+            if ($ret){
+                $data = ['userinfo' => $this->auth->getUserinfo()];
+                $this->success(__('Sign up successful'), $data);
+            }else{
+                $this->error($this->auth->getError());
+            }
         }
     }
 
@@ -142,8 +149,10 @@ class User extends Api
      */
     public function logout()
     {
-        $this->auth->logout();
-        $this->success(__('Logout successful'));
+        if($this->request->isPost()){
+            $this->auth->logout();
+            $this->success(__('Logout successful'));
+        }
     }
 
     /**
@@ -293,60 +302,34 @@ class User extends Api
      */
     public function resetpwd()
     {
-        $type = $this->request->request("type");
         $mobile = $this->request->request("mobile");
-        $email = $this->request->request("email");
-        $newpassword = $this->request->request("newpassword");
+        $password = $this->request->request("password");
         $captcha = $this->request->request("captcha");
-        if (!$newpassword || !$captcha)
+        if (!$password || !$captcha)
         {
             $this->error(__('Invalid parameters'));
         }
-        if ($type == 'mobile')
+        if (!Validate::regex($mobile, "^1\d{10}$"))
         {
-            if (!Validate::regex($mobile, "^1\d{10}$"))
-            {
-                $this->error(__('Mobile is incorrect'));
-            }
-            $user = \app\common\model\User::getByMobile($mobile);
-            if (!$user)
-            {
-                $this->error(__('User not found'));
-            }
-            $ret = Sms::check($mobile, $captcha, 'resetpwd');
-            if (!$ret)
-            {
-                $this->error(__('Captcha is incorrect'));
-            }
-            Sms::flush($mobile, 'resetpwd');
+            $this->error(__('Mobile is incorrect'));
         }
-        else
+        $user = \app\common\model\User::getByMobile($mobile);
+        if (!$user)
         {
-            if (!Validate::is($email, "email"))
-            {
-                $this->error(__('Email is incorrect'));
-            }
-            $user = \app\common\model\User::getByEmail($email);
-            if (!$user)
-            {
-                $this->error(__('User not found'));
-            }
-            $ret = Ems::check($email, $captcha, 'resetpwd');
-            if (!$ret)
-            {
-                $this->error(__('Captcha is incorrect'));
-            }
-            Ems::flush($email, 'resetpwd');
+            $this->error(__('User not found'));
         }
+        $ret = Sms::check($mobile, $captcha, 'resetpwd');
+        if (!$ret)
+        {
+            $this->error(__('Captcha is incorrect'));
+        }
+        Sms::flush($mobile, 'resetpwd');
         //模拟一次登录
         $this->auth->direct($user->id);
-        $ret = $this->auth->changepwd($newpassword, '', true);
-        if ($ret)
-        {
+        $ret = $this->auth->changepwd($password, '', true);
+        if ($ret){
             $this->success(__('Reset password successful'));
-        }
-        else
-        {
+        } else {
             $this->error($this->auth->getError());
         }
     }

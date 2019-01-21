@@ -5,21 +5,27 @@ namespace app\api\controller;
 use app\common\controller\Api;
 
 /**
- * 首页接口
+ * 案例与解读
  */
-class Index extends Api
+class Cases extends Api
 {
 
     protected $noNeedLogin = ['*'];
     protected $noNeedRight = ['*'];
 
     /**
-     * 首页
+     * 首页接口
      * 
      */
     public function index()
     {
-        $this->success('请求成功');
+        if ($this->request->isGet()) {
+            $this->success('请求成功');
+        }
     }
+
+    /**
+     * 全部案例接口
+     */
 
 }
