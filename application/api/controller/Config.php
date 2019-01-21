@@ -14,35 +14,20 @@ class Config extends Api
     protected $noNeedRight = ['*'];
 
     /**
-     * 头部配置
+     * 网站页面配置
      * 
      */
-    public function header()
+    public function site()
     {
     	if($this->request->isGet()){
-    		$this->success('请求成功');
+            $site = [
+                'header_logo'   => config('site.header_logo'),
+                'footer_logo'   => config('site.footer_logo'),
+                'beian'         => config('site.beian'),
+                'beianhao'      => config('site.beianhao'),
+                'banquan'       => config('site.banquan')
+            ];
+    		$this->success('请求成功',compact('site'));
     	}
-    }
-    
-    /**
-     * 底部配置
-     * 
-     */
-    public function footer()
-    {
-        if($this->request->isGet()){
-            $this->success('请求成功');
-        }
-    }
-
-    /**
-     * 登录页配置
-     * 
-     */
-    public function login()
-    {
-        if($this->request->isGet()){
-            $this->success('请求成功');
-        }
     }
 }

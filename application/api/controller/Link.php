@@ -21,7 +21,7 @@ class Link extends Api
     public function lists()
     {
     	if($this->request->isGet()){
-            $link = (new LinkModel)->gerAll();
+            $link = (new LinkModel)->getAll();
     		$this->success('请求成功',compact('link'));
     	}
     }
