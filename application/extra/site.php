@@ -2,9 +2,7 @@
 
 return array (
   'name' => '传帮带',
-  'beian' => '',
-  'cdnurl' => '',
-  'version' => '1.0.1',
+  'beian' => '青ICP备 15000037号',
   'timezone' => 'Asia/Shanghai',
   'forbiddenip' => '',
   'languages' => 
@@ -15,18 +13,12 @@ return array (
   'fixedpage' => 'dashboard',
   'categorytype' => 
   array (
-    'default' => 'Default',
-    'page' => 'Page',
-    'article' => 'Article',
-    'test' => 'Test',
   ),
   'configgroup' => 
   array (
     'basic' => 'Basic',
     'email' => 'Email',
     'dictionary' => 'Dictionary',
-    'user' => 'User',
-    'example' => 'Example',
   ),
   'mail_type' => '1',
   'mail_smtp_host' => 'smtp.qq.com',
@@ -35,4 +27,9 @@ return array (
   'mail_smtp_pass' => 'password',
   'mail_verify_type' => '2',
   'mail_from' => '10000@qq.com',
+  'banquan' => '网络什么版权',
+  'header_logo' => '',
+  'footer_logo' => '',
+  'logo' => '',
+  'beianhao' => '',
 );
