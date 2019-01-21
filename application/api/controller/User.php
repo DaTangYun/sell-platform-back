@@ -40,7 +40,7 @@ class User extends Api
     {
         $account = $this->request->request('account');
         $password = $this->request->request('password');
-        if (!$account || !$password
+        if (!$account || !$password)
         {
             $this->error(__('Invalid parameters'));
         }
@@ -49,8 +49,7 @@ class User extends Api
         {
             $data = ['userinfo' => $this->auth->getUserinfo()];
             $this->success(__('Logged in successful'), $data);
-        }
-        else
+        }else
         {
             $this->error($this->auth->getError());
         }

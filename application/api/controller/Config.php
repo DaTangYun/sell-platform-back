@@ -23,7 +23,7 @@ class Config extends Api
     		$this->success('请求成功');
     	}
     }
-
+    
     /**
      * 底部配置
      * 
@@ -34,7 +34,6 @@ class Config extends Api
             $this->success('请求成功');
         }
     }
-
 
     /**
      * 登录页配置
