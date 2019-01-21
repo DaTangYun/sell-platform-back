@@ -29,4 +29,13 @@ class Topline extends Api
     /**
      * 所有列表
      */
+    public function lists()
+    {
+        if($this->request->isGet()){
+            $cateId = input('get.cate_id/d',0);
+            $page = input('get.page/d',1);
+            $title = input('get.title/s','');
+            $topline = (New ToplineModel)->getAll($page,$cateId,$title);
+        }
+    }
 }
