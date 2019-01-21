@@ -15,4 +15,28 @@ use think\Model;
 
 class Topline extends Model
 {
+    public function getCreatetimeAttr($value)
+    {
+        return date('Y-m-d',$value);
+    }
+
+    public function getAll($page = 1,$cateId = 0,$title = '')
+    {
+        $query = self::order('weigh desc,id desc');
+        if($cateId)
+            $query->where('topline_cate_id',$cateId);
+        if($title)
+            $query->where('title','like', $title . '%');
+        return $query->page($page)->limit(5)->select();
+    }
+
+    public function getTotal($cateId = 0,$title = '')
+    {
+        $query = self::order('weigh desc');
+        if($cateId)
+            $query->where('topline_cate_id',$cateId);
+        if($title)
+            $query->where('title','like', $title . '%');
+        return $query->count();
+    }
 }
