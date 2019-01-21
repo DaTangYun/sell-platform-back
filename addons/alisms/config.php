@@ -24,7 +24,7 @@ return array (
     'content' => 
     array (
     ),
-    'value' => '7aaBo9jhqase8fj2W974iYpvS0tfQs',
+    'value' => '7aaBo9jhqase8fj2W974iYpvS0tfQs.',
     'rule' => 'required',
     'msg' => '',
     'tip' => '',
