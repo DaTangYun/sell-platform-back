@@ -1,0 +1,39 @@
+---------------------------------------------------------------
+[ 2019-01-21T10:28:33+08:00 ] 127.0.0.1 GET cbd/
+[ error ] [8]unserialize(): Error at offset 0 of 9 bytes
+---------------------------------------------------------------
+[ 2019-01-21T10:28:40+08:00 ] 127.0.0.1 HEAD cbd/api/demo
+[ error ] [8]unserialize(): Error at offset 0 of 9 bytes
+---------------------------------------------------------------
+[ 2019-01-21T10:28:47+08:00 ] 127.0.0.1 GET cbd/api/demo/
+[ error ] [8]unserialize(): Error at offset 0 of 9 bytes
+---------------------------------------------------------------
+[ 2019-01-21T10:29:19+08:00 ] 127.0.0.1 HEAD cbd/api/demo/test
+[ error ] [8]unserialize(): Error at offset 0 of 9 bytes
+---------------------------------------------------------------
+[ 2019-01-21T10:29:26+08:00 ] 127.0.0.1 GET cbd/api/demo/test/
+[ error ] [8]unserialize(): Error at offset 0 of 9 bytes
+---------------------------------------------------------------
+[ 2019-01-21T10:29:34+08:00 ] 127.0.0.1 GET cbd/
+[ error ] [8]unserialize(): Error at offset 0 of 9 bytes
+---------------------------------------------------------------
+[ 2019-01-21T10:30:31+08:00 ] 127.0.0.1 GET cbd/
+[ error ] [8]unserialize(): Error at offset 0 of 9 bytes
+---------------------------------------------------------------
+[ 2019-01-21T10:31:13+08:00 ] 127.0.0.1 HEAD cbd/api/demo/test3
+[ error ] [8]unserialize(): Error at offset 0 of 9 bytes
+---------------------------------------------------------------
+[ 2019-01-21T10:31:19+08:00 ] 127.0.0.1 GET cbd/api/demo/test3/
+[ error ] [8]unserialize(): Error at offset 0 of 9 bytes
+---------------------------------------------------------------
+[ 2019-01-21T10:31:21+08:00 ] 127.0.0.1 GET cbd/api/demo/test3/
+[ error ] [8]unserialize(): Error at offset 0 of 9 bytes
+---------------------------------------------------------------
+[ 2019-01-21T10:31:22+08:00 ] 127.0.0.1 GET cbd/api/demo/test3/
+[ error ] [8]unserialize(): Error at offset 0 of 9 bytes
+---------------------------------------------------------------
+[ 2019-01-21T10:31:22+08:00 ] 127.0.0.1 GET cbd/api/demo/test3/
+[ error ] [8]unserialize(): Error at offset 0 of 9 bytes
+---------------------------------------------------------------
+[ 2019-01-21T10:31:25+08:00 ] 127.0.0.1 HEAD cbd/
+[ error ] [8]unserialize(): Error at offset 0 of 9 bytes
