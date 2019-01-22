@@ -15,5 +15,9 @@ use think\Model;
 
 class ToplineCate extends Model
 {
+    public function getAll()
+    {
+        return self::order('weigh desc,id desc')->select();
+    }
 
 }

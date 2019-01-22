@@ -10,7 +10,7 @@ use think\Model;
 class Carousel Extends Model
 {
 
-    public function gerAll()
+    public function getAll()
     {
         return self::order('weigh desc,id desc')->select();
     }

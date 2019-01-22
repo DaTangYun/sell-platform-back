@@ -21,7 +21,7 @@ class Carousel extends Api
     public function lists()
     {
     	if($this->request->isGet()){
-            $carousel = (new CarouselModel)->gerAll();
+            $carousel = (new CarouselModel)->getAll();
     		$this->success('请求成功',compact('carousel'));
     	}
     }
