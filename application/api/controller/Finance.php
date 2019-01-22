@@ -34,7 +34,8 @@ class Finance extends Api
             $page = $this->request->get('page/d',1);
             $limit = $this->request->get('limit/d',10);
             $finance = (new FinanceModel)->getFinance($page,$limit);
-            $this->success('获取数据成功',compact('finance'));
+            $total = (new FinanceModel())->getFinanceTotal();
+            $this->success('获取数据成功',compact('finance','total'));
         }
     }
 

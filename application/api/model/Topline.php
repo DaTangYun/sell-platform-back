@@ -34,6 +34,8 @@ class Topline extends Model
             $query->where('topline_cate_id',$cateId);
         if(!empty($title))
             $query->where('title','like', $title . '%');
+        if($userId)
+            $query->where('user_id',$userId);
         if($status)
             $query->where('status','2');
         return $query->page($page)->limit($limit)->select();

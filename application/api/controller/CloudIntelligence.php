@@ -28,6 +28,8 @@ class CloudIntelligence extends Api
         $limit = $this->request->get('limit/d',16);
         //云智慧数据
         $cloud = (new CloudIntelligenceModel)->getCloudAll($page,$limit);
-        $this->success('获取云智慧数据成功',compact('cloud'));
+        //云智慧的总数
+        $total = (new CloudIntelligenceModel)->getCloudCount();
+        $this->success('获取云智慧数据成功',compact('cloud','total'));
     }
 }

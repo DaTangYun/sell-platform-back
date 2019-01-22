@@ -54,6 +54,16 @@ class Finance extends Model
     }
 
     /**
+     * 财经法规的总记录数
+     * @param $id
+     * @return int|string
+     * @throws \think\Exception
+     */
+    public function getFinanceTotal()
+    {
+        return $this->count('id');
+    }
+    /**
      * 获取财经法规详情
      * @param $id
      * @return Finance|null

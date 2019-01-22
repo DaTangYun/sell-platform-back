@@ -26,6 +26,17 @@ class CloudIntelligence extends Model
      */
     public function getCloudAll($page,$limit)
     {
-        return $this->page($page,$limit)->select();
+        return $this->field(['id','image','url'])->page($page,$limit)->select();
     }
+
+    /**
+     * 云智慧的总数
+     * @return int|string
+     * @throws \think\Exception
+     */
+    public function getCloudCount()
+    {
+        return $this->count('id');
+    }
+
 }

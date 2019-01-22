@@ -11,7 +11,7 @@ use app\api\model\Cases as CasesModel;
 class Cases extends Api
 {
 
-    protected $noNeedLogin = ['*'];
+    protected $noNeedLogin = ['lists','detail'];
     protected $noNeedRight = ['*'];
 
     /**
@@ -36,10 +36,20 @@ class Cases extends Api
             //接收分页页数和每页显示的数据
             $page = $this->request->get('page/d',1);
             $limit = $this->request->get('limit/d',6);
-            $cases = (new CasesModel)->getAllCases($page,$limit);
-            $this->success('获取数据成功',compact('cases'));
+            $search =  $this->request->get('search',false);
+            $user_id = $this->request->get('userId',0);
+            $cases = (new CasesModel)->getAllCases($page,$limit,$search,$user_id,$flag);
+            $total = (new CasesModel())->getCasesTotal();
+            $this->success('获取数据成功',compact('cases','total'));
         }
     }
+
+    /**
+     * 案例详情
+     * @param $id
+     * @throws \think\Exception
+     * @throws \think\exception\DbException
+     */
     public function detail($id)
     {
         //设置过滤方法
