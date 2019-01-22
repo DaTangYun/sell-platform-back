@@ -27,5 +27,8 @@ class Cases extends Api
     /**
      * 全部案例接口
      */
+    public function lists()
+    {
 
+    }
 }
