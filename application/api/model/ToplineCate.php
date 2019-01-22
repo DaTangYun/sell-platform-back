@@ -17,7 +17,7 @@ class ToplineCate extends Model
 {
     public function getAll()
     {
-        return self::order('weigh desc,id desc')->select();
+        return self::order('id desc')->field('id,cate_name')->select();
     }
 
 }

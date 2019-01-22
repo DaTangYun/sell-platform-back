@@ -11,12 +11,12 @@ use app\api\model\Topline as ToplineModel;
 class Topline extends Api
 {
 
-    protected $noNeedLogin = ['lists'];
+    protected $noNeedLogin = ['lists','detail'];
     protected $noNeedRight = ['*'];
 
 
     /**
-     * 无权限所有列表
+     * 无权限列表
      */
     public function lists()
     {
@@ -25,9 +25,23 @@ class Topline extends Api
             $page = input('get.page/d',1);
             $limit = input('get.limit/d',5);
             $title = input('get.title/s','');
-            $topline = (New ToplineModel)->getAll($page,$limit,$cateId,$title,$userId = 0);
-            $total = (New ToplineModel)->getTotal($cateId,$title,$userId = 0);
+            $userId = input('get.userId/d',0);
+            //显示通过
+            $status = ture;
+            $topline = (New ToplineModel)->getAll($page,$limit,$cateId,$title,$userId,$status);
+            $total = (New ToplineModel)->getTotal($cateId,$title,$userId,$status);
             $this->success('获取成功',compact('topline','total'));
+        }
+    }
+    /**
+     * 无权限详情页
+     */
+    public function detail()
+    {
+        if($this->request->isGet()){
+            $id = input('get.id/d',0);
+            $detail = (New ToplineModel())->edit($id,$userId = 0);
+            $this->success('获取成功',compact('detail'));
         }
     }
 
@@ -43,8 +57,10 @@ class Topline extends Api
             $title = input('get.title/s','');
             $user = $this->auth->getUser();
             $userId = $user->id;
-            $topline = (New ToplineModel)->getAll($page,$limit,$cateId,$title,$userId);
-            $total = (New ToplineModel)->getTotal($cateId,$title,$userId);
+            //显示所有的
+            $status = false;
+            $topline = (New ToplineModel)->getAll($page, $limit, $cateId, $title, $userId, $status);
+            $total = (New ToplineModel)->getTotal($cateId,$title,$userId,$status);
             $this->success('获取成功',compact('topline','total'));
         }
     }
@@ -57,8 +73,8 @@ class Topline extends Api
         if($this->request->isPost()){
             $post = $this->request->post();
             $user = $this->auth->getUser();
-            $post['user_id'] = $user->id;
-            if ((New ToplineModel())->add($post))
+            $userId = $user->id;
+            if ((New ToplineModel())->add($post,$userId))
                 $this->success('发表成功');
             $this->error('发表失败');
         }

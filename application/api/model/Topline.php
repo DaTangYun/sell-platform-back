@@ -24,29 +24,40 @@ class Topline extends Model
     {
         return date('Y-m-d',$value);
     }
-
-    public function getAll($page = 1, $limit = 5, $cateId = 0, $title = '', $userId = 0)
+    /**
+     * 获取列表
+     */
+    public function getAll($page = 1, $limit = 5, $cateId = 0, $title = '', $userId = 0, $status)
     {
         $query = self::order('weigh desc,id desc');
         if($cateId)
             $query->where('topline_cate_id',$cateId);
-        if($title)
+        if(!empty($title))
             $query->where('title','like', $title . '%');
+        if($status)
+            $query->where('status','2');
         return $query->page($page)->limit($limit)->select();
     }
-
-    public function getTotal($cateId = 0, $title = '',$userId = 0)
+    /**
+     * 获取总数
+     */
+    public function getTotal($cateId = 0, $title = '',$userId = 0,$status)
     {
         $query = self::order('weigh desc');
         if($cateId)
             $query->where('topline_cate_id',$cateId);
-        if($title)
+        if(!empty($title))
             $query->where('title','like', $title . '%');
         if($userId)
             $query->where('user_id',$userId);
+        if($status)
+            $query->where('status','2');
         return $query->count();
     }
 
+    /**
+     * 添加修改
+     */
     public function add($data,$userId)
     {
         if (!empty($data['id'])) {
@@ -59,12 +70,23 @@ class Topline extends Model
         }
     }
 
+    /**
+     * 获取详情
+     */
     public function edit($id,$userId)
     {   
-        return self::where(['id'=>$id,'user_id'=>$userId])->find();
+        $where = ['id'=> $id];
+        if ($userId) {
+            $where['user_id'] = $userId;
+        }
+        $data = self::where($where)->find();
+        $data->setInc('reading_count');
+        return $data;
     }
 
-
+    /**
+     * 删除
+     */
     public function del($id,$userId)
     {
         return self::where(['id'=>$id,'user_id'=>$userId])->delete();
