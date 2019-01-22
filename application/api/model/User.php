@@ -13,10 +13,10 @@ namespace app\api\model;
 
 use think\Model;
 
-class CloudIntelligence extends Model
+class User extends Model
 {
     /**
-     * 云智慧
+     * 秀秀我数据
      * @param $page
      * @param $limit
      * @return false|\PDOStatement|string|\think\Collection
@@ -24,8 +24,8 @@ class CloudIntelligence extends Model
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function getCloudAll($page,$limit)
+    public function getAllUser($page,$limit)
     {
-        return $this->page($page,$limit)->select();
+        return $this->field(['id','username','avatar','bio'])->page($page,$limit)->select();
     }
 }
