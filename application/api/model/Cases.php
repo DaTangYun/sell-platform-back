@@ -33,19 +33,17 @@ class Cases extends Model
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function getAllCases($page,$limit,$search,$user_id,$flag=false)
+    public function getAllCases($page,$limit,$search,$user_id,$flag=true)
     {
-        //查询条件
-        $map = 'status = 2';
-        if ($search){
-           $map = "stauts = 2 and title like %{$search}%";
-        }
-
-        return $this->field(['id','cover','title'])
-            ->where($map)
-            ->page($page,$limit)
-            ->order(['weigh'=>'desc','id'=>'desc'])
-            ->select();
+        //构建查询
+        $query = self::field(['id','cover','title'])->page($page,$limit)->order(['weigh'=>'desc','id'=>'desc']);
+        //判断是否有搜索条件
+        $query->where('title','like', '%'.$search.'%');
+        //判断用户id
+        if($user_id > 0) $query->where(['user_id'=>$user_id]);
+        //判断案例状态
+        if ($flag) $query->where(['status'=>'2']);
+        return $query->select();
     }
 
     /**
@@ -53,9 +51,17 @@ class Cases extends Model
      * @return int|string
      * @throws \think\Exception
      */
-    public function getCasesTotal()
+    public function getCasesTotal($search,$user_id,$flag=true)
     {
-        return $this->where(['status'=>'1'])->count('id');
+        //构建查询
+        $query = self::order(['weigh'=>'desc','id'=>'desc']);
+        //判断是否有搜索条件
+        if ($search) $query->whereLike('title',$search);
+        //判断用户id
+        if($user_id > 0) $query->where(['user_id'=>$user_id]);
+        //判断案例状态
+        if ($flag) $query->where(['status'=>'2']);
+        return $query->count('id');
     }
     /**
      *
