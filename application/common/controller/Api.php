@@ -323,5 +323,22 @@ class Api
 
         return true;
     }
-
+    /**
+     * 数据库字段 网页字段转换
+     * #User: Mikkle
+     * #Email:776329498@qq.com
+     * #Date:
+     * @param $array 转化数组
+     * @return 返回数据数组
+     */
+    protected function buildParam($array)
+    {
+        $data=[];
+        if (is_array($array)){
+            foreach( $array as $item=>$value ){
+                $data[$item] = $this->request->param($value);
+            }
+        }
+        return $data;
+    }
 }

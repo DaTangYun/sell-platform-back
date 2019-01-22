@@ -7,6 +7,7 @@ use app\common\library\Ems;
 use app\common\library\Sms;
 use fast\Random;
 use think\Validate;
+use app\api\model\User as UserModel;
 
 /**
  * 会员接口
@@ -14,7 +15,7 @@ use think\Validate;
 class User extends Api
 {
 
-    protected $noNeedLogin = ['login', 'mobilelogin', 'register', 'resetpwd', 'changeemail', 'changemobile', 'third'];
+    protected $noNeedLogin = ['login', 'mobilelogin', 'register', 'resetpwd', 'changeemail', 'changemobile', 'third','showme'];
     protected $noNeedRight = '*';
 
     public function _initialize()
@@ -334,4 +335,23 @@ class User extends Api
         }
     }
 
+    /**
+     * 用户的秀秀我
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function showme()
+    {
+        //设置过滤方法
+        $this->request->filter(['strip_tags']);
+        if ($this->request->isGet()){
+            //接收分页页数和每页的数据
+            $page = $this->request->get('page/d',1);
+            $limit = $this->request->get('limit/d',10);
+            //显示秀秀我的数据
+            $showme = (new UserModel)->getAllUser($page,$limit);
+            $this->success('获取秀秀我数据成功',compact('showme'));
+        }
+    }
 }
