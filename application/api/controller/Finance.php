@@ -13,12 +13,24 @@ namespace app\api\controller;
 
 use app\common\controller\Api;
 use app\api\model\Finance as FinanceModel;
+use app\api\model\FinanceCate as FinanceCateModel;
 
 class Finance extends Api
 {
     protected $noNeedLogin = ['*'];
     protected $noNeedRight = ['*'];
+    /**
+     * 当前模型对象
+     * @var \app\api\model\
+     */
+    protected $model = null;
 
+    public function _initialize()
+    {
+        parent::_initialize();
+        $this->model = new FinanceModel;
+
+    }
     /**
      * 获取财经法规列表数据
      * @throws \think\db\exception\DataNotFoundException
@@ -33,9 +45,12 @@ class Finance extends Api
             //接收分页页数和每页显示的数据
             $page = $this->request->get('page/d',1);
             $limit = $this->request->get('limit/d',10);
-            $finance = (new FinanceModel)->getFinance($page,$limit);
-            $total = (new FinanceModel())->getFinanceTotal();
-            $this->success('获取数据成功',compact('finance','total'));
+            $title = $this->request->get('title/s',false);
+            $cate_id = $this->request->get('cate_id/s',0);
+            $finance = $this->model->getFinance($page,$limit,$title,$cate_id);
+            $total = $this->model->getFinanceTotal($title,$cate_id);
+            $cate = (new FinanceCateModel)->getAllCate();
+            $this->success('获取数据成功',compact('finance','total','cate'));
         }
     }
 
@@ -50,7 +65,7 @@ class Finance extends Api
         $this->request->filter(['strip_tags']);
         if ($this->request->isGet()){
             //接收分页页数和每页显示的数据
-            $detail = (new FinanceModel)->getDetail($id);
+            $detail = $this->model->getDetail($id);
             $this->success('获取数据成功',compact('detail'));
         }
     }

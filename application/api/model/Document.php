@@ -64,14 +64,41 @@ class Document extends Model
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function getAllDocument($page,$limit)
+    public function getAllDocument($page,$limit,$title,$user_id,$flag = true)
     {
-        return $this->field(['id','title','cate_id','createtime'])
-            ->with(['cate','user'])
-            ->where(['status'=>'1'])
-            ->page($page,$limit)
+        //构建查询
+        $query = self::with(['cate','user'])->field(['id','title','cate_id','createtime']);
+        //判断是否有搜索条件
+        $query->where('title','like', '%'.$title.'%');
+        //判断用户id
+        if($user_id > 0) $query->where(['user_id'=>$user_id]);
+        //判断案例状态
+        if ($flag) $query->where(['status'=>'2']);
+        return $query->page($page,$limit)
             ->order(['weigh'=>'desc','id'=>'desc'])
             ->select();
+
+    }
+
+    /**
+     * 查询总页数
+     * @param      $search
+     * @param      $user_id
+     * @param bool $flag
+     * @return int|string
+     * @throws \think\Exception
+     */
+    public function getTotal($search,$user_id,$flag=true)
+    {
+        //构建查询
+        $query = self::field(['id']);
+        //判断是否有搜索条件
+        if ($search) $query->whereLike('title',$search);
+        //判断用户id
+        if($user_id > 0) $query->where(['user_id'=>$user_id]);
+        //判断案例状态
+        if ($flag) $query->where(['status'=>'2']);
+        return $query->count('id');
     }
     /**
      * 获取文档模型详情

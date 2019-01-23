@@ -43,12 +43,15 @@ class Finance extends Model
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function getFinance($page,$limit)
+    public function getFinance($page,$limit,$title,$cate_id)
     {
-        return $this->field(['id','cate_id','createtime'])
-            ->with(['cate'])
-            ->where(['status'=>'1'])
-            ->page($page,$limit)
+        //构建查询
+        $query = self::with(['cate'])->field(['id','cate_id','createtime','title'])->where(['status'=>'1']);
+        //检测是否有搜索内容
+        if ($title) $query->where('title','like', '%'.$title.'%');
+        //检测是否有分类id
+        if ($cate_id > 0) $query->where(['cate_id'=>$cate_id]);
+        return $query->page($page,$limit)
             ->order(['weigh'=>'desc','id'=>'desc'])
             ->select();
     }
@@ -59,9 +62,15 @@ class Finance extends Model
      * @return int|string
      * @throws \think\Exception
      */
-    public function getFinanceTotal()
+    public function getFinanceTotal($title,$cate_id)
     {
-        return $this->count('id');
+        //构建查询
+        $query = self::field(['id'])->where(['status'=>'1']);
+        //检测是否有搜索内容
+        if ($title) $query->where('title','like', '%'.$title.'%');
+        //检测是否有分类id
+        if ($cate_id > 0) $query->where(['cate_id'=>$cate_id]);
+        return $query->count('id');
     }
     /**
      * 获取财经法规详情

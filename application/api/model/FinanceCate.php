@@ -15,5 +15,15 @@ use think\Model;
 
 class FinanceCate extends Model
 {
-
+    /**
+     * 查询财经法规分类
+     * @return false|\PDOStatement|string|\think\Collection
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getAllCate()
+    {
+        return self::limit(9)->order(['weigh'=>'desc','id'=>'desc'])->select();
+    }
 }

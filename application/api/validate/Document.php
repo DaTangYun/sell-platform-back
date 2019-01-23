@@ -13,19 +13,18 @@ namespace app\api\validate;
 
 use think\Validate;
 
-class Topline extends Validate
+class Document extends Validate
 {
     /**
      * 验证规则
      */
     protected $rule = [
-        'title'         => 'require',
-        'topline_cate_id' => 'require',
-        'cover'         => 'require',
-        'content'       => 'require',
-        'province'      => 'require',
-        'city'          => 'require',
-        'area'          => 'require',
+        'title'     => 'require',
+        'cate_id'    => 'cate_id',
+        'url'     => 'require',
+        'province'  => 'require',
+        'city'      => 'require',
+        'area'      => 'require',
     ];
 
     /**
@@ -33,9 +32,8 @@ class Topline extends Validate
      */
     protected $message = [
         'title.require' => '标题必须',
-        'topline_cate_id.require' => '作者必须',
-        'cover.require' => '图片必须',
-        'content.require' => '内容必须',
+        'cate_id.require' => '作者必须',
+        'url.require' => '图片必须',
         'province.require' => '省份必须',
         'city.require' => '城市必须',
         'area.require' => '区域必须必须',
@@ -53,5 +51,4 @@ class Topline extends Validate
     protected $scene = [
 
     ];
-
 }

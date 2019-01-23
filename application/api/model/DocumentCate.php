@@ -15,5 +15,18 @@ use think\Model;
 
 class DocumentCate extends Model
 {
-
+    // 定义时间戳字段名
+    protected $createTime = 'createtime';
+    protected $updateTime = 'updatetime';
+    /**
+     * 获取分档分类
+     * @return false|\PDOStatement|string|\think\Collection
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getDocumentCate()
+    {
+        return self::field(['id','name'])->select();
+    }
 }
