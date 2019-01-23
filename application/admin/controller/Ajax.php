@@ -100,7 +100,7 @@ class Ajax extends Backend
         $splInfo = $file->validate(['size' => $size])->move(ROOT_PATH . '/public' . $uploadDir, $fileName);
         if ($splInfo) {
             $imagewidth = $imageheight = 0;
-            if (in_array($suffix, ['gif', 'jpg', 'jpeg', 'bmp', 'png', 'swf'])) {
+            if (in_array($suffix, ['gif', 'jpg', 'jpeg', 'bmp', 'png', 'swf','doc','docx'])) {
                 $imgInfo = getimagesize($splInfo->getPathname());
                 $imagewidth = isset($imgInfo[0]) ? $imgInfo[0] : $imagewidth;
                 $imageheight = isset($imgInfo[1]) ? $imgInfo[1] : $imageheight;

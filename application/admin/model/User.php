@@ -100,5 +100,9 @@ class User extends Model
     {
         return $this->belongsTo('UserGroup', 'group_id', 'id', [], 'LEFT')->setEagerlyType(0);
     }
-
+    public function getIsIdentyAttr($value)
+    {
+        $stats = [0=>'未认证',1=>'已认证'];
+        return $stats[$value];
+    }
 }
