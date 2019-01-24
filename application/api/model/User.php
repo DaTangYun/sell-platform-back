@@ -32,6 +32,6 @@ class User extends Model
      */
     public function getAllUser($page,$limit)
     {
-        return $this->field(['id','username','avatar','bio'])->page($page,$limit)->select();
+        return $this->field(['id','username','avatar','bio'])->page($page,$limit)->order('weigh desc')->select();
     }
 }
