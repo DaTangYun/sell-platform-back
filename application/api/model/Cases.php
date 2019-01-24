@@ -15,6 +15,10 @@ use think\Model;
 
 class Cases extends Model
 {
+    protected $autoWriteTimestamp = true;
+
+    protected $createTime = 'createtime';
+    protected $updateTime = 'updatetime';
     /**
      * 时间获取器
      * @param $value
