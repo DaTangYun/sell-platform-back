@@ -24,6 +24,7 @@ class User extends Backend
     {
         parent::_initialize();
         $this->model = model('User');
+        $this->view->assign("statusList", $this->model->getIsIdentyList());
     }
 
     /**

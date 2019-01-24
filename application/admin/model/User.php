@@ -100,9 +100,16 @@ class User extends Model
     {
         return $this->belongsTo('UserGroup', 'group_id', 'id', [], 'LEFT')->setEagerlyType(0);
     }
-    public function getIsIdentyAttr($value)
+    public function getIsIdentyList()
     {
-        $stats = [0=>'未认证',1=>'已认证'];
-        return $stats[$value];
+        return ['0' => __('未认证'),'1' => __('认证中'),'2' => __('已认证')];
+    }
+
+
+    public function getIsIdentyTextAttr($value, $data)
+    {
+        $value = $value ? $value : (isset($data['is_identy']) ? $data['is_identy'] : '');
+        $list = $this->getIsIdentyList();
+        return isset($list[$value]) ? $list[$value] : '';
     }
 }

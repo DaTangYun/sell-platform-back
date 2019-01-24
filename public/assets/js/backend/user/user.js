@@ -33,7 +33,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'province', title: __('省')},
                         {field: 'city', title: __('市')},
                         {field: 'area', title: __('区')},
-                        {field: 'is_identy', title: __('是否认证'), formatter: Table.api.formatter.status},
+                        {field: 'is_identy', title: __('是否认证'), searchList: {"0":__('未认证'),"1":__('认证中'),"2":__('已认证')}, formatter: Table.api.formatter.status},
                         {field: 'status', title: __('Status'), formatter: Table.api.formatter.status, searchList: {normal: __('Normal'), hidden: __('Hidden')}},
                         {field: 'expiretime', title: __('过期时间'), operate:'RANGE', addclass:'datetimerange', formatter: Table.api.formatter.datetime},
                         {field: 'updatetime', title: __('Updatetime'), operate:'RANGE', addclass:'datetimerange', formatter: Table.api.formatter.datetime},

@@ -30,6 +30,21 @@ class TeamApply extends Model
     ];
 
     /**
+     * 带分页的团队成员
+     * @param $page
+     * @param $limit
+     * @param $id
+     * @return false|\PDOStatement|string|\think\Collection
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getMember($page, $limit, $id)
+    {
+        return self::where(['team_id' => $id])->page($page, $limit)->select();
+    }
+
+    /**
      * 查询团队成员
      * @param $id
      * @return false|\PDOStatement|string|\think\Collection
@@ -39,6 +54,27 @@ class TeamApply extends Model
      */
     public function getTeamMember($id)
     {
-        return self::where(['id'=>$id])->where(['status'=>2])->select();
+        return self::where(['team_id' => $id, 'status' => '2'])->select();
+    }
+
+    /**
+     * 删除团队成员
+     * @param $id
+     * @return int
+     */
+    public function del($id)
+    {
+        return self::where(['team_id' => $id])->delete();
+    }
+
+    /**
+     * 对团审核
+     * @param $id
+     * @param $status
+     * @return int
+     */
+    public function examineMember($id, $status)
+    {
+        return $this->where(['id'=>$id])->setField('stauts',$status);
     }
 }
