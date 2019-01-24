@@ -3,6 +3,7 @@
 return array (
   'name' => '传帮带',
   'beian' => '青ICP备 15000037号',
+  'beianhao' => '110000000000000号',
   'timezone' => 'Asia/Shanghai',
   'forbiddenip' => '',
   'languages' => 
@@ -31,5 +32,4 @@ return array (
   'header_logo' => 'http://www.pptok.com/wp-content/uploads/2012/08/xunguang-4.jpg',
   'footer_logo' => 'http://www.pptok.com/wp-content/uploads/2012/08/xunguang-4.jpg',
   'logo' => 'http://www.pptok.com/wp-content/uploads/2012/08/xunguang-4.jpg',
-  'beianhao' => '110000000000000号',
 );
