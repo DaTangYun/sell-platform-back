@@ -12,9 +12,15 @@ namespace app\api\model;
 
 
 use think\Model;
+use think\Request;
 
 class User extends Model
 {
+    public function getAvatarAttr($value)
+    {
+        return Request::instance()->domain().$value;
+    }
+
     /**
      * 秀秀我数据
      * @param $page

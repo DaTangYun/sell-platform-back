@@ -36,7 +36,7 @@ class UserComment extends Model
      */
     public function user()
     {
-
+        return $this->belongsTo('User','comment_id')->bind('nickname,avatar');
     }
 
     /**
@@ -44,7 +44,7 @@ class UserComment extends Model
     */
     public function getAll($page,$limit,$userId)
     {
-        return self::order('id desc')->where('user_id',$userId)->page($page)->limit($limit)->select();
+        return self::order('id desc')->with('user')->where('user_id',$userId)->page($page)->limit($limit)->select();
     }
 
     /**
