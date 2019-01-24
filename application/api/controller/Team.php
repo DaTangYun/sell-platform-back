@@ -63,9 +63,8 @@ class Team extends Api
             $page = $this->request->get('page',1);
             $limit = $this->request->get('limit',10);
             //当前用户id
-            //$user = $this->auth->getUser();
-            //$param_data['user_id'] = $user->id;
-            $user_id = 1;
+            $user = $this->auth->getUser();
+            $user_id = $user->id;
             $team = $this->model->getLists($page,$limit,$user_id);
             $this->success('获取团队列表成功',compact('team'));
         }
@@ -91,9 +90,8 @@ class Team extends Api
                 $this->error($validate->getError());
             }
             //当前用户id
-            //$user = $this->auth->getUser();
-            //$param_data['user_id'] = $user->id;
-            $param_data['user_id'] = 1;
+            $user = $this->auth->getUser();
+            $param_data['user_id'] = $user->id;
             //实例化案例模型
             try {
                 $result = $this->model->save($param_data);
@@ -131,9 +129,11 @@ class Team extends Api
             if (!$validate->check($param_data)) {
                 $this->error($validate->getError());
             }
-            //$user = $this->auth->getUser();
+            //当前用户id
+            $user = $this->auth->getUser();
+            $user_id = $user->id;
             //只允许添加该案例的修改
-            if ($row->user_id != 1) $this->error('很抱歉，你没有操作权限');
+            if ($row->user_id != $user_id) $this->error('很抱歉，你没有操作权限');
             //实例化案例模型
             try {
                 $result = $row->save($param_data);
@@ -159,9 +159,11 @@ class Team extends Api
         $row = $this->model->get($id);
         if (!$row) $this->error('没有查找到数据');
         if ($this->request->isPost()){
-            //$user = $this->auth->getUser();
+            //当前用户id
+            $user = $this->auth->getUser();
+            $user_id = $user->id;
             //只允许添加该案例的修改
-            if ($row->user_id != 1) $this->error('很抱歉，你没有操作权限');
+            if ($row->user_id != $user_id) $this->error('很抱歉，你没有操作权限');
             try {
                 // 启动事务
                 Db::startTrans();
@@ -197,7 +199,7 @@ class Team extends Api
         if ($this->request->isGet()){
             $detail = $this->model->getDetail($id);
             $member = (new TeamApplyModel)->getTeamMember($id);
-            $member->visible(['name','excellence','desc']);
+            collection($member)->hidden(['mobile','user_id']);
             $this->success('获取成功',compact('detail','member'));
         }
     }
@@ -214,7 +216,9 @@ class Team extends Api
         //设置过滤方法
         $this->request->filter(['strip_tags']);
         if ($this->request->isGet()){
-            $member = (new TeamApplyModel)->getTeamMember($id);
+            $page = $this->request->get('page',1);
+            $limit = $this->request->get('limit',10);
+            $member = (new TeamApplyModel)->getMember($page,$limit,$id);
             $this->success('获取成功',compact('member'));
         }
     }

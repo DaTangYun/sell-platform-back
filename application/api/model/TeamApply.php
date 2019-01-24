@@ -75,6 +75,6 @@ class TeamApply extends Model
      */
     public function examineMember($id, $status)
     {
-        return $this->where(['id'=>$id])->setField('stauts',$status);
+        return $this->where(['id'=>$id])->setField('status',$status);
     }
 }
