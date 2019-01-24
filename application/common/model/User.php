@@ -3,6 +3,7 @@
 namespace app\common\model;
 
 use think\Model;
+use think\Request;
 
 /**
  * 会员模型
@@ -39,7 +40,15 @@ class User Extends Model
      */
     public function getAvatarAttr($value, $data)
     {
-        return $value ? $value : '/assets/img/avatar.png';
+        return $value ? Request::instance()->domain().$value : Request::instance()->domain().'/assets/img/avatar.png';
+    }
+
+    /**
+     * 获取过期时间
+     */
+    public function getExpiretimeAttr($value, $data)
+    {
+        return date('Y-m-d',$value);
     }
 
     /**
