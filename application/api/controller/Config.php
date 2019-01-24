@@ -23,6 +23,7 @@ class Config extends Api
             $site = [
                 'header_logo'   => config('site.header_logo'),
                 'footer_logo'   => config('site.footer_logo'),
+                'logo'          => config('site.logo'),
                 'beian'         => config('site.beian'),
                 'beianhao'      => config('site.beianhao'),
                 'banquan'       => config('site.banquan')

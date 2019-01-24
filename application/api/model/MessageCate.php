@@ -15,5 +15,9 @@ use think\Model;
 
 class MessageCate extends Model
 {
+    public function getAll()
+    {
+        return self::order('id desc')->field('id,cate_name')->select();
+    }
 
 }
