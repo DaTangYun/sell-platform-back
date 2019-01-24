@@ -15,5 +15,11 @@ use think\Model;
 
 class Page extends Model
 {
-
+    /**
+     * 单页面返回
+     */
+    public function getPageDetail($id)
+    {
+        return self::where('id',$id)->find();
+    }
 }
