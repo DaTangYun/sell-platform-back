@@ -8,7 +8,6 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     index_url: 'page/index',
                     add_url: 'page/add',
                     edit_url: 'page/edit',
-                    del_url: 'page/del',
                     multi_url: 'page/multi',
                     table: 'page',
                 }
