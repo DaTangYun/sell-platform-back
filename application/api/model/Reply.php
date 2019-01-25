@@ -13,7 +13,7 @@ namespace app\api\model;
 
 use think\Model;
 
-class UserComment extends Model
+class Reply extends Model
 {
     protected $autoWriteTimestamp = 'int';
 
@@ -31,36 +31,26 @@ class UserComment extends Model
     }
 
     /**
-     * 关联评论人模型
-     * @return \think\model\relation\BelongsTo
+     * from_user_id获取器
      */
-    public function user()
+    public function getFromUserIdAttr($value)
     {
-        return $this->belongsTo('User','comment_id')->bind(['nickname', 'avatar']);
+        return (new User)->where('id',$value)->field('id,avatar,nickname')->find();
     }
 
     /**
-    * 评论列表
-    */
-    public function getAll($page,$limit,$userId)
+     * to_user_id获取器
+     */
+    public function getToUserIdAttr($value)
     {
-        return self::order('id desc')->with('user')->where('user_id',$userId)->page($page)->limit($limit)->select();
+        return (new User)->where('id',$value)->field('id,avatar,nickname')->find();
     }
 
     /**
-     * 评论总数
+     * 添加回复
      */
-    public function getTotal($userId)
-    {
-        return self::where('user_id',$userId)->count();
-    }
-
-    /**
-     * 进行评论
-     */
-    public function comment($data)
+    public function add($data)
     {
         return self::save($data);
     }
-
 }
