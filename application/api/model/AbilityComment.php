@@ -16,4 +16,11 @@ use think\Model;
 class AbilityComment extends Model
 {
 
+    /**
+    *获取能力全部评价
+     */
+    public function getAll($page,$limit,$abilityId)
+    {
+        
+    }
 }

@@ -36,7 +36,7 @@ class UserComment extends Model
      */
     public function user()
     {
-        return $this->belongsTo('User','comment_id')->bind('nickname,avatar');
+        return $this->belongsTo('User','comment_id')->bind(['nickname', 'avatar']);
     }
 
     /**

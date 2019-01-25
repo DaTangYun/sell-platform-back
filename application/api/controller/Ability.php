@@ -156,7 +156,7 @@ class Ability extends Api
                 'desc'          => 'desc',
                 'price'         => 'price',
                 'mobile'        => 'mobile',
-                'content'        => 'content',
+                'content'       => 'content',
             ];
             $param_data = $this->buildParam($params);
             //数据验证
