@@ -33,7 +33,7 @@ class Message extends Validate
      */
     protected $message = [
         'title.require' => '标题必须',
-        'message_cate_id.require' => '作者必须',
+        'message_cate_id.require' => '分类必须',
         'cover.require' => '图片必须',
         'content.require' => '内容必须',
         'province.require' => '省份必须',

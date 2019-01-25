@@ -39,13 +39,12 @@ class Message extends Api
             $limit = input('get.limit/d',5);
             $title = input('get.title/s','');
             $userId = input('get.userId/d',0);
-            //显示通过
-            $status = ture;
-            $message = $this->model->getAll($page,$limit,$cateId,$title,$userId,$status);
-            $total = $this->model->getTotal($cateId,$title,$userId,$status);
+            $message = $this->model->getAll($page,$limit,$cateId,$title,$userId,true);
+            $total = $this->model->getTotal($cateId,$title,$userId,true);
             $this->success('获取成功',compact('message','total'));
         }
     }
+
     /**
      * 无权限详情页
      */
@@ -63,7 +62,7 @@ class Message extends Api
      */
     public function profile()
     {
-        if($this->request->isPost()){
+        if($this->request->isGet()){
             $cateId = input('get.cate_id/d',0);
             $page = input('get.page/d',1);
             $limit = input('get.limit/d',5);
@@ -89,13 +88,14 @@ class Message extends Api
         if ($this->request->isPost()) {
             //数据库字段 网页字段转换
             $params = [
-                'title' => 'title',
-                'Message_cate_id' => 'Message_cate_id',
-                'cover' => 'cover',
-                'content' => 'content',
-                'province' => 'province',
-                'city' => 'city',
-                'area' => 'area',
+                'title'             => 'title',
+                'message_cate_id'   => 'message_cate_id',
+                'cover'             => 'cover',
+                'content'           => 'content',
+                'mobile'            => 'mobile',
+                'province'          => 'province',
+                'city'              => 'city',
+                'area'              => 'area',
 
             ];
             $param_data = $this->buildParam($params);
@@ -121,8 +121,8 @@ class Message extends Api
 
         }
         //显示分类
-        $cate = (new MessageCateModel)->getDocumentCate();
-        $this->success('获取文档分类成功','cate');
+        $cate = (new MessageCateModel)->getAll();
+        $this->success('获取文档分类成功',compact('cate'));
     }
     /**
      * 修改头条
@@ -133,16 +133,19 @@ class Message extends Api
     {
         //判断修改案例的id是否存在
         $row = $this->model->get($id);
-        if (!$row) $this->error('没有查找到数据');
+        if (!$row) $this->success('暂无数据');
         if ($this->request->isPost()) {
             //数据库字段 网页字段转换
             $params = [
-                'title' => 'title',
-                'cate_id' => 'cate_id',
-                'url' => 'url',
-                'province' => 'province',
-                'city' => 'city',
-                'area' => 'area',
+                'title'             => 'title',
+                'message_cate_id'   => 'message_cate_id',
+                'cover'             => 'cover',
+                'content'           => 'content',
+                'mobile'            => 'mobile',
+                'province'          => 'province',
+                'city'              => 'city',
+                'area'              => 'area',
+
             ];
             $param_data = $this->buildParam($params);
             //数据验证
@@ -168,9 +171,10 @@ class Message extends Api
             }
         }
         //显示分类
-        $cate = (new MessageCateModel)->getDocumentCate();
-        $this->success('获取数据成',compact('row','cate'));
+        $cate = (new MessageCateModel)->getAll();
+        $this->success('获取数据成功',compact('row','cate'));
     }
+
     /**
      * 删除头条
      * @param null $id

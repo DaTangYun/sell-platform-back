@@ -20,7 +20,13 @@ class Topline extends Model
 
     protected $createTime = 'createtime';
     protected $updateTime = 'updatetime';
-
+    protected $hidden = [
+        'weigh',
+        'seo_titile',
+        'seo_keyword',
+        'seo_desc',
+        'updatetime'
+    ];
     /**
      * 图片获取器
      * @param $value
@@ -39,6 +45,15 @@ class Topline extends Model
     {
         return date('Y-m-d',$value);
     }
+
+    /**
+     * 关联分类模型
+     * @return \think\model\relation\BelongsTo
+     */
+    public function cate()
+    {
+        return $this->belongsTo('ToplineCate','topline_cate_id')->bind('cate_name');
+    }
     /**
      * 获取列表
      */
@@ -50,7 +65,9 @@ class Topline extends Model
         !empty($title) && $map['title'] = ['like', '%' . trim($title) . '%'];
         $userId > 0 && $map['user_id'] = $userId;
         $flag && $map['status'] = '2';
-        return self::where($map)->order('weigh desc,id desc')->page($page)->limit($limit)->select();
+        //定义显示字段
+        $field = ['id','title','topline_cate_id','cover','desc','reading_count'];
+        return self::with(['cate'])->field($field)->where($map)->order('weigh desc,id desc')->page($page)->limit($limit)->select();
     }
     /**
      * 获取总数

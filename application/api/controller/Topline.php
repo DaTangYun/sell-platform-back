@@ -120,8 +120,8 @@ class Topline extends Api
 
         }
         //显示分类
-        $cate = (new ToplineCateModel)->getDocumentCate();
-        $this->success('获取文档分类成功','cate');
+        $cate = (new ToplineCateModel)->getAll();
+        $this->success('获取分类成功',compact('cate'));
     }
     /**
      * 修改头条
@@ -132,13 +132,13 @@ class Topline extends Api
     {
         //判断修改案例的id是否存在
         $row = $this->model->get($id);
-        if (!$row) $this->error('没有查找到数据');
+        if (!$row) $this->success('暂无数据');
         if ($this->request->isPost()) {
-            //数据库字段 网页字段转换
             $params = [
                 'title' => 'title',
-                'cate_id' => 'cate_id',
-                'url' => 'url',
+                'topline_cate_id' => 'topline_cate_id',
+                'cover' => 'cover',
+                'content' => 'content',
                 'province' => 'province',
                 'city' => 'city',
                 'area' => 'area',
@@ -157,7 +157,7 @@ class Topline extends Api
             if ($row->user_id != $user_id) $this->error('很抱歉，你没有操作权限');
             //实例化案例模型
             try {
-                $result = $row->allowField(true)->save($param_data);
+                $result = $row->save($param_data);
                 if ($result !== false) {
                     return json(['code' => 1, 'msg' => '修改成功','data'=>[]]);
                 } else {
@@ -167,9 +167,8 @@ class Topline extends Api
                 return json(['code' => 0, 'msg' => $e->getMessage(),'data'=>[]]);
             }
         }
-        //显示分类
-        $cate = (new ToplineCateModel)->getDocumentCate();
-        $this->success('获取数据成',compact('row','cate'));
+        $cate = (new ToplineCateModel)->getAll();
+        $this->success('获取分类成功',compact('row','cate'));
     }
     /**
      * 删除头条
