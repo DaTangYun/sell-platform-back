@@ -12,6 +12,7 @@ namespace app\api\model;
 
 
 use think\Model;
+use think\Request;
 
 class Topline extends Model
 {
@@ -20,6 +21,20 @@ class Topline extends Model
     protected $createTime = 'createtime';
     protected $updateTime = 'updatetime';
 
+    /**
+     * 图片获取器
+     * @param $value
+     * @return string
+     */
+    public function getCoverAttr($value)
+    {
+        return Request::instance()->domain().$value;
+    }
+    /**
+     * 时间获取器
+     * @param $value
+     * @return false|string
+     */
     public function getCreatetimeAttr($value)
     {
         return date('Y-m-d',$value);
@@ -27,34 +42,28 @@ class Topline extends Model
     /**
      * 获取列表
      */
-    public function getAll($page = 1, $limit = 5, $cateId = 0, $title = '', $userId = 0, $status)
+    public function getAll($page = 1, $limit = 5, $cateId = 0, $title = '', $userId = 0, $flag = false)
     {
-        $query = self::order('weigh desc,id desc');
-        if($cateId)
-            $query->where('topline_cate_id',$cateId);
-        if(!empty($title))
-            $query->where('title','like', $title . '%');
-        if($userId)
-            $query->where('user_id',$userId);
-        if($status)
-            $query->where('status','2');
-        return $query->page($page)->limit($limit)->select();
+        //过滤筛选
+        $map = [];
+        $cateId > 0 && $map['topline_cate_id'] = $cateId;
+        !empty($title) && $map['title'] = ['like', '%' . trim($title) . '%'];
+        $userId > 0 && $map['user_id'] = $userId;
+        $flag && $map['status'] = '2';
+        return self::where($map)->order('weigh desc,id desc')->page($page)->limit($limit)->select();
     }
     /**
      * 获取总数
      */
-    public function getTotal($cateId = 0, $title = '',$userId = 0,$status)
+    public function getTotal($cateId = 0, $title = '',$userId = 0,$flag = false)
     {
-        $query = self::order('weigh desc');
-        if($cateId)
-            $query->where('topline_cate_id',$cateId);
-        if(!empty($title))
-            $query->where('title','like', $title . '%');
-        if($userId)
-            $query->where('user_id',$userId);
-        if($status)
-            $query->where('status','2');
-        return $query->count();
+        //过滤筛选
+        $map = [];
+        $cateId > 0 && $map['topline_cate_id'] = $cateId;
+        !empty($title) && $map['title'] = ['like', '%' . trim($title) . '%'];
+        $userId > 0 && $map['user_id'] = $userId;
+        $flag && $map['status'] = '2';
+        return self::where($map)->order('weigh desc,id desc')->count();
     }
 
     /**

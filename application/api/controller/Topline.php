@@ -38,11 +38,10 @@ class Topline extends Api
             $page = input('get.page/d',1);
             $limit = input('get.limit/d',5);
             $title = input('get.title/s','');
-            $userId = input('get.userId/d',0);
+            $userId = input('get.userId/d',false);
             //显示通过
-            $status = ture;
-            $topline = $this->model->getAll($page,$limit,$cateId,$title,$userId,$status);
-            $total = $this->model->getTotal($cateId,$title,$userId,$status);
+            $topline = $this->model->getAll($page,$limit,$cateId,$title,$userId,true);
+            $total = $this->model->getTotal($cateId,$title,$userId,true);
             $this->success('获取成功',compact('topline','total'));
         }
     }
