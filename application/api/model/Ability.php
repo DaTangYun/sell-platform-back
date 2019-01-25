@@ -60,16 +60,25 @@ class Ability extends Model
     {
         //条件筛选
         $map = [];
-        $title && $map['title'] = $title;
+        $title && $map['title'] = ['like', '%' . trim($title) . '%'];
         $flag  && $map['status'] = '2';
         $user_id > 0 && $map['user_id'] = $user_id;
-        return self::where($map)->order(['id'=>'desc'])->select();
+        return self::where($map)->order(['id'=>'desc'])->page($page,$limit)->select();
     }
+
+    /**
+     * 获取总数
+     * @param      $title
+     * @param bool $flag
+     * @param int  $user_id
+     * @return int|string
+     * @throws \think\Exception
+     */
     public function getTotal($title,$flag = false,$user_id = 0)
     {
         //条件筛选
         $map = [];
-        $title && $map['title'] = $title;
+        $title && $map['title'] = ['like', '%' . trim($title) . '%'];
         $flag  && $map['status'] = '2';
         $user_id > 0 && $map['user_id'] = $user_id;
         return self::where($map)->order(['id'=>'desc'])->count();
