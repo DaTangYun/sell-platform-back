@@ -12,9 +12,21 @@ namespace app\api\model;
 
 
 use think\Model;
+use think\Request;
 
 class CloudIntelligence extends Model
 {
+
+    /**
+     * 图片获取器
+     * @param $value
+     * @return string
+     */
+    public function getImageAttr($value)
+    {
+        return Request::instance()->domain().$value;
+    }
+
     /**
      * 云智慧
      * @param $page
