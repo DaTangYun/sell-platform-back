@@ -12,15 +12,15 @@ namespace app\api\controller;
 
 
 use app\common\controller\Api;
-use app\api\model\Ability as AbilityModel;
-use app\api\validate\Ability as AbilityValidate;
+use app\api\model\HelpMe as HelpMeModel;
+use app\api\validate\HelpMe as HelpMeValidate;
 
 /**
- * 帮帮我控制器
- * Class Ability
+ * 能帮会干控制器
+ * Class HelpMe
  * @package app\api\controller
  */
-class Ability extends Api
+class HelpMe extends Api
 {
     protected $noNeedLogin = ['lists','detail'];
     protected $noNeedRight = ['*'];
@@ -33,11 +33,11 @@ class Ability extends Api
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = new AbilityModel;
+        $this->model = new HelpMeModel;
 
     }
     /**
-     *帮帮我列表
+     *能帮会干列表
      */
     public function lists()
     {
@@ -48,14 +48,14 @@ class Ability extends Api
             $page = $this->request->get('page/d', 1);
             $limit = $this->request->get('limit/d', 6);
             $title = $this->request->get('title', false);
-            $ability = $this->model->getAllAbility($page, $limit, $title,true);
+            $ability = $this->model->getAllHelp($page, $limit, $title,true);
             $total = $this->model->getTotal($title);
             $this->success('获取数据成功', compact('ability', 'total'));
         }
     }
 
     /**
-     * 帮帮我详情
+     * 能帮会干详情
      * @param $id
      * @throws \think\Exception
      * @throws \think\exception\DbException
@@ -88,7 +88,7 @@ class Ability extends Api
             $title = $this->request->get('title', false);
             $user = $this->auth->getUser();
             $user_id = $user->id;
-            $cases = $this->model->getAllAbility($page, $limit, $title, true,$user_id);
+            $cases = $this->model->getAllHelp($page, $limit, $title, true,$user_id);
             $total = $this->model->getTotal($title, $user_id);
             $this->success('获取数据成功', compact('cases', 'total'));
         }
@@ -106,16 +106,23 @@ class Ability extends Api
             //数据库字段 网页字段转换
             $params = [
                 'title'         => 'title',
-                'ability_id'    => 'ability_id',
+                'demand_id'     => 'demand_id/d',
                 'image'         => 'image',
                 'desc'          => 'desc',
                 'price'         => 'price',
                 'mobile'        => 'mobile',
-                'content'        => 'content',
+                'content'       => 'content',
+                'contact'       => 'contact',
+                'commission'    => 'commission',
+                'start_time'    => 'start_time',
+                'end_time'      => 'end_time',
+                'province'      => 'province',
+                'city'          => 'city',
+                'area'          => 'area',
             ];
             $param_data = $this->buildParam($params);
             //数据验证
-            $validate = new AbilityValidate;
+            $validate = new HelpMeValidate;
             if (!$validate->check($param_data)) {
                 $this->error($validate->getError());
             }
@@ -151,16 +158,23 @@ class Ability extends Api
             //数据库字段 网页字段转换
             $params = [
                 'title'         => 'title',
-                'ability_id'    => 'ability_id',
+                'demand_id'     => 'demand_id/d',
                 'image'         => 'image',
                 'desc'          => 'desc',
                 'price'         => 'price',
                 'mobile'        => 'mobile',
-                'content'        => 'content',
+                'content'       => 'content',
+                'contact'       => 'contact',
+                'commission'    => 'commission',
+                'start_time'    => 'start_time',
+                'end_time'      => 'end_time',
+                'province'      => 'province',
+                'city'          => 'city',
+                'area'          => 'area',
             ];
             $param_data = $this->buildParam($params);
             //数据验证
-            $validate = new AbilityValidate;
+            $validate = new HelpMeValidate;
             if (!$validate->check($param_data)) {
                 $this->error($validate->getError());
             }

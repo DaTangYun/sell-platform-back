@@ -83,4 +83,15 @@ class Ability extends Model
         $user_id > 0 && $map['user_id'] = $user_id;
         return self::where($map)->order(['id'=>'desc'])->count();
     }
+
+    /**
+     * 帮帮我详情
+     * @param $id
+     * @return Ability|null
+     * @throws \think\exception\DbException
+     */
+    public function getDetail($id)
+    {
+        return self::get($id);
+    }
 }
