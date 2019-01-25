@@ -105,9 +105,8 @@ class Topline extends Api
                 $this->error($validate->getError());
             }
             //当前用户id
-            //$user = $this->auth->getUser();
-            //$param_data['user_id'] = $user->id;
-            $param_data['user_id'] = 1;
+            $user = $this->auth->getUser();
+            $param_data['user_id'] = $user->id;
             //实例化案例模型
             try {
                 $result = $this->model->save($param_data);
@@ -152,9 +151,11 @@ class Topline extends Api
             if (!$validate->check($param_data)) {
                 $this->error($validate->getError());
             }
-            //$user = $this->auth->getUser();
+            //当前用户id
+            $user = $this->auth->getUser();
+            $user_id = $user->id;
             //只允许添加该案例的修改
-            if ($row->user_id != 1) $this->error('很抱歉，你没有操作权限');
+            if ($row->user_id != $user_id) $this->error('很抱歉，你没有操作权限');
             //实例化案例模型
             try {
                 $result = $row->allowField(true)->save($param_data);
@@ -182,9 +183,11 @@ class Topline extends Api
         $row = $this->model->get($id);
         if (!$row) $this->error('没有查找到数据');
         if ($this->request->isPost()){
-            //$user = $this->auth->getUser();
+            //当前用户id
+            $user = $this->auth->getUser();
+            $user_id = $user->id;
             //只允许添加该案例的修改
-            if ($row->user_id != 1) $this->error('很抱歉，你没有操作权限');
+            if ($row->user_id != $user_id) $this->error('很抱歉，你没有操作权限');
             try {
                 $result = $row->delete();
                 if ($result !== false) {

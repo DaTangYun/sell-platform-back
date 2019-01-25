@@ -1,18 +1,28 @@
 <?php
+// +----------------------------------------------------------------------
+// | DTCms
+// +----------------------------------------------------------------------
+// | 版权所有 2017-2019 西安大唐云信息科技有限公司 [ http://www.rungyun.com ]
+// +----------------------------------------------------------------------
+// | 技术博客: http://www.rungyun.com
+// +----------------------------------------------------------------------
+
 
 namespace app\api\controller;
 
+
 use app\common\controller\Api;
-use app\api\model\Cases as CasesModel;
-use app\api\validate\Cases as CasesValidate;
+use app\api\model\Ability as AbilityModel;
+use app\api\validate\Ability as AbilityValidate;
 
 /**
- * 案例与解读
+ * 帮帮我控制器
+ * Class Ability
+ * @package app\api\controller
  */
-class Cases extends Api
+class Ability extends Api
 {
-
-    protected $noNeedLogin = ['lists', 'detail', 'add','edit','del'];
+    protected $noNeedLogin = ['*'];
     protected $noNeedRight = ['*'];
     /**
      * 当前模型对象
@@ -23,12 +33,11 @@ class Cases extends Api
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = new CasesModel;
+        $this->model = new AbilityModel;
 
     }
-
     /**
-     * 全部案例接口
+     *帮帮我列表
      */
     public function lists()
     {
@@ -38,16 +47,15 @@ class Cases extends Api
             //接收分页页数和每页显示的数据
             $page = $this->request->get('page/d', 1);
             $limit = $this->request->get('limit/d', 6);
-            $search = $this->request->get('search', false);
-            $user_id = $this->request->get('userId', 0);
-            $cases = $this->model->getAllCases($page, $limit, $search, $user_id);
-            $total = $this->model->getCasesTotal($search, $user_id);
-            $this->success('获取数据成功', compact('cases', 'total'));
+            $title = $this->request->get('title', false);
+            $ability = $this->model->getAllAbility($page, $limit, $title,true);
+            $total = $this->model->getTotal($title);
+            $this->success('获取数据成功', compact('ability', 'total'));
         }
     }
 
     /**
-     * 案例详情
+     * 帮帮我详情
      * @param $id
      * @throws \think\Exception
      * @throws \think\exception\DbException
@@ -63,7 +71,7 @@ class Cases extends Api
     }
 
     /**
-     *个人中心案例
+     *个人中心帮帮列表
      * @throws \think\Exception
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
@@ -77,18 +85,17 @@ class Cases extends Api
             //接收分页页数和每页显示的数据
             $page = $this->request->get('page/d', 1);
             $limit = $this->request->get('limit/d', 6);
-            $search = $this->request->get('search', false);
+            $title = $this->request->get('title', false);
             $user = $this->auth->getUser();
             $user_id = $user->id;
-            $flag = false;
-            $cases = $this->model->getAllCases($page, $limit, $search, $user_id, false);
-            $total = $this->model->getCasesTotal($search, $user_id);
+            $cases = $this->model->getAllAbility($page, $limit, $title, true,$user_id);
+            $total = $this->model->getTotal($title, $user_id);
             $this->success('获取数据成功', compact('cases', 'total'));
         }
     }
 
     /**
-     * 添加案例
+     * 添加帮助
      * @return \think\response\Json
      */
     public function add()
@@ -98,19 +105,17 @@ class Cases extends Api
         if ($this->request->isPost()) {
             //数据库字段 网页字段转换
             $params = [
-                'title' => 'title',
-                'author' => 'author',
-                'cover' => 'cover',
-                'source' => 'source',
-                'content' => 'content',
-                'province' => 'province',
-                'city' => 'city',
-                'area' => 'area',
-
+                'title'         => 'title',
+                'ability_id'    => 'ability_id',
+                'image'         => 'image',
+                'desc'          => 'desc',
+                'price'         => 'price',
+                'mobile'        => 'mobile',
+                'content'        => 'content',
             ];
             $param_data = $this->buildParam($params);
             //数据验证
-            $validate = new CasesValidate;
+            $validate = new AbilityValidate;
             if (!$validate->check($param_data)) {
                 $this->error($validate->getError());
             }
@@ -133,7 +138,7 @@ class Cases extends Api
     }
 
     /**
-     * 修改案例
+     * 修改帮帮我
      * @param null $id
      * @return \think\response\Json
      */
@@ -145,30 +150,27 @@ class Cases extends Api
         if ($this->request->isPost()) {
             //数据库字段 网页字段转换
             $params = [
-                'title' => 'title',
-                'author' => 'author',
-                'cover' => 'cover',
-                'source' => 'source',
-                'content' => 'content',
-                'province' => 'province',
-                'city' => 'city',
-                'area' => 'area',
-
+                'title'         => 'title',
+                'ability_id'    => 'ability_id',
+                'image'         => 'image',
+                'desc'          => 'desc',
+                'price'         => 'price',
+                'mobile'        => 'mobile',
+                'content'        => 'content',
             ];
             $param_data = $this->buildParam($params);
             //数据验证
-            $validate = new CasesValidate;
+            $validate = new AbilityValidate;
             if (!$validate->check($param_data)) {
                 $this->error($validate->getError());
             }
             //当前用户id
             $user = $this->auth->getUser();
             $user_id = $user->id;
-            //只允许添加该案例的修改
             if ($row->user_id != $user_id) $this->error('很抱歉，你没有操作权限');
             //实例化案例模型
             try {
-                $result = $row->allowField(true)->save($param_data);
+                $result = $row->save($param_data);
                 if ($result !== false) {
                     return json(['code' => 1, 'msg' => '修改成功','data'=>[]]);
                 } else {
@@ -182,7 +184,7 @@ class Cases extends Api
     }
 
     /**
-     * 删除案例
+     *删除
      * @param null $id
      * @return \think\response\Json
      */
