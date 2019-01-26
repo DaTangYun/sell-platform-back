@@ -38,7 +38,7 @@ class Team extends Model
      */
     public function getCreatetimeAttr($value)
     {
-        return date('Y-m-d H:i:s',$value);
+        return date('Y-m-d',$value);
     }
     /**
      * 关联申请人模型
@@ -46,7 +46,7 @@ class Team extends Model
      */
     public function apply()
     {
-        return $this->hasMany('TeamApply','team_id');
+        return $this->hasMany('TeamApply','team_id')->where('status','2');
     }
 
     /**
@@ -61,7 +61,7 @@ class Team extends Model
      */
     public function getLists($page,$limit,$user_id)
     {
-        return $this->with('apply')->where(['user_id'=>$user_id])->page($page,$limit)->select();
+        return $this->withCount('apply')->where(['user_id'=>$user_id])->page($page,$limit)->select();
     }
 
     /**

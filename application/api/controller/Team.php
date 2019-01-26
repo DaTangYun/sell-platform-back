@@ -47,8 +47,8 @@ class Team extends Api
         if ($this->request->isGet()){
             $page = $this->request->get('page',1);
             $limit = $this->request->get('limit',10);
-            $user_id = $this->request->get('user_id',0);
-            $team = $this->model->getLists($page,$limit,$user_id);
+            $userId = $this->request->get('user_id',0);
+            $team = $this->model->getLists($page,$limit,$userId);
             $this->success('获取团队列表成功',compact('team'));
         }
     }
@@ -64,8 +64,8 @@ class Team extends Api
             $limit = $this->request->get('limit',10);
             //当前用户id
             $user = $this->auth->getUser();
-            $user_id = $user->id;
-            $team = $this->model->getLists($page,$limit,$user_id);
+            $userId = $user->id;
+            $team = $this->model->getLists($page,$limit,$userId);
             $this->success('获取团队列表成功',compact('team'));
         }
     }
