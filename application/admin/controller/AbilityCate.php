@@ -5,24 +5,24 @@ namespace app\admin\controller;
 use app\common\controller\Backend;
 
 /**
- * 帮帮我管理
+ * 能帮会干分类管理
  *
  * @icon fa fa-circle-o
  */
-class HelpMe extends Backend
+class AbilityCate extends Backend
 {
     
     /**
-     * Me模型对象
-     * @var \app\admin\model\help\Me
+     * Cate模型对象
+     * @var \app\admin\model\ability\Cate
      */
     protected $model = null;
 
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = new \app\admin\model\HelpMe;
-        $this->view->assign("statusList", $this->model->getStatusList());
+        $this->model = new \app\admin\model\AbilityCate;
+
     }
     
     /**
