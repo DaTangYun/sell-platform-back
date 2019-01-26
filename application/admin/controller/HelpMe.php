@@ -21,7 +21,7 @@ class HelpMe extends Backend
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = new \app\admin\model\help\Me;
+        $this->model = new \app\admin\model\HelpMe;
         $this->view->assign("statusList", $this->model->getStatusList());
     }
     
