@@ -20,6 +20,10 @@ class Document extends Model
 
     protected $createTime = 'createtime';
     protected $updateTime = 'updatetime';
+    protected $hidden = [
+        'weigh',
+        'updatetime'
+    ];
     /**
      * 时间获取器
      * @param $value
@@ -45,9 +49,9 @@ class Document extends Model
      * @param         $value
      * @return string
      */
-    public function getUrlAttr(Request $request,$value)
+    public function getUrlAttr($value)
     {
-        return $this->request->domon . $value;
+        return Request::instance()->domain().$value;
     }
 
     /**
@@ -68,12 +72,14 @@ class Document extends Model
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function getAllDocument($page,$limit,$title,$user_id,$flag = true)
+    public function getAllDocument($page,$limit,$title,$cate_id,$user_id,$flag = false)
     {
         //构建查询
         $query = self::with(['cate','user'])->field(['id','title','cate_id','createtime']);
         //判断是否有搜索条件
         $query->where('title','like', '%'.$title.'%');
+        //判断文档分类
+        $query->where(['cate_id'=>$cate_id]);
         //判断用户id
         if($user_id > 0) $query->where(['user_id'=>$user_id]);
         //判断案例状态
@@ -92,12 +98,14 @@ class Document extends Model
      * @return int|string
      * @throws \think\Exception
      */
-    public function getTotal($search,$user_id,$flag=true)
+    public function getTotal($search,$cate_id,$user_id,$flag=true)
     {
         //构建查询
         $query = self::field(['id']);
         //判断是否有搜索条件
         if ($search) $query->whereLike('title',$search);
+        //判断文档分类
+        $query->where(['cate_id'=>$cate_id]);
         //判断用户id
         if($user_id > 0) $query->where(['user_id'=>$user_id]);
         //判断案例状态

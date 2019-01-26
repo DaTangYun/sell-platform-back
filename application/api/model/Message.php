@@ -67,7 +67,7 @@ class Message extends Model
         $userId > 0 && $map['user_id'] = $userId;
         $flag && $map['status'] = '2';
         //定义显示字段
-        $field = ['id','title','message_cate_id','cover','desc','reading_count'];
+        $field = ['id','title','message_cate_id','cover','desc','reading_count','user_id'];
         return self::with(['cate'])->field($field)->where($map)->order('weigh desc,id desc')->page($page)->limit($limit)->select();
     }
     /**
@@ -122,4 +122,17 @@ class Message extends Model
         return self::where(['id'=>$id,'user_id'=>$userId])->delete();
     }
 
+    /**
+     *
+     * @param $id
+     * @return Cases|null
+     * @throws \think\Exception
+     * @throws \think\exception\DbException
+     */
+    public function getDetail($id)
+    {
+        $data = self::get($id);
+        if ($data) $data->setInc('reading_count');
+        return $data;
+    }
 }

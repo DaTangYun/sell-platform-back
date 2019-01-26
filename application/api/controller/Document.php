@@ -54,8 +54,9 @@ class Document extends Api
             $limit = $this->request->get('limit/d',10);
             $title = $this->request->get('title', false);
             $user_id = $this->request->get('userId', 0);
-            $document = $this->model->getAllDocument($page,$limit,$title,$user_id);
-            $total = $this->model->getTotal($title, $user_id);
+            $cate_id = $this->request->get('cate_id', 0);
+            $document = $this->model->getAllDocument($page,$limit,$title,$cate_id,$user_id,true);
+            $total = $this->model->getTotal($title,$cate_id,$user_id,true);
             $this->success('获取数据成功',compact('document'));
         }
     }
@@ -88,11 +89,11 @@ class Document extends Api
             $page = $this->request->get('page/d', 1);
             $limit = $this->request->get('limit/d', 6);
             $title = $this->request->get('title', false);
+            $cate_id = $this->request->get('cate_id', 0);
             $user = $this->auth->getUser();
             $user_id = $user->id;
-            $flag = false;
-            $cases = $this->model->getAllDocument($page, $limit, $title, $user_id, $flag);
-            $total = $this->model->getTotal($title, $user_id,$flag);
+            $cases = $this->model->getAllDocument($page, $limit, $title, $cate_id,$user_id);
+            $total = $this->model->getTotal($title,$cate_id,$user_id);
             $this->success('获取数据成功', compact('cases', 'total'));
         }
     }
@@ -108,7 +109,7 @@ class Document extends Api
             //数据库字段 网页字段转换
             $params = [
                 'title' => 'title',
-                'cate_id' => 'cate_id',
+                'cate_id' => 'cate_id/d',
                 'url' => 'url',
                 'province' => 'province',
                 'city' => 'city',
@@ -139,7 +140,7 @@ class Document extends Api
         }
         //显示分类
         $cate = (new DocumentCateModel)->getDocumentCate();
-        $this->success('获取文档分类成功','cate');
+        $this->success('获取文档分类成功',compact('cate'));
     }
     /**
      * 修改案例

@@ -12,6 +12,7 @@ namespace app\api\model;
 
 
 use think\Model;
+use think\Request;
 
 class Cases extends Model
 {
@@ -19,6 +20,23 @@ class Cases extends Model
 
     protected $createTime = 'createtime';
     protected $updateTime = 'updatetime';
+    protected $hidden = [
+        'weigh',
+        'seo_title',
+        'seo_keyword',
+        'seo_desc',
+        'updatetime'
+    ];
+
+    /**
+     * 图片获取器
+     * @param $value
+     * @return string
+     */
+    public function getCoverAttr($value)
+    {
+        return Request::instance()->domain().$value;
+    }
     /**
      * 时间获取器
      * @param $value
@@ -78,7 +96,7 @@ class Cases extends Model
     {
         $field = ['title','author','cover','source','reading_count','content','seo_title','seo_keyword','seo_desc','createtime'];
         $data = self::field($field)->find($id);
-        $data->setInc('reading_count');
+        if ($data) $data->setInc('reading_count');
         return $data;
     }
 }
