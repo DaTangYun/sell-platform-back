@@ -12,7 +12,7 @@ use app\api\validate\Cases as CasesValidate;
 class Cases extends Api
 {
 
-    protected $noNeedLogin = ['lists', 'detail', 'add','edit','del'];
+    protected $noNeedLogin = ['lists', 'detail'];
     protected $noNeedRight = ['*'];
     /**
      * 当前模型对象
@@ -38,7 +38,7 @@ class Cases extends Api
             //接收分页页数和每页显示的数据
             $page = $this->request->get('page/d', 1);
             $limit = $this->request->get('limit/d', 6);
-            $search = $this->request->get('search', false);
+            $search = $this->request->get('title', false);
             $user_id = $this->request->get('userId', 0);
             $cases = $this->model->getAllCases($page, $limit, $search, $user_id);
             $total = $this->model->getCasesTotal($search, $user_id);
@@ -77,7 +77,7 @@ class Cases extends Api
             //接收分页页数和每页显示的数据
             $page = $this->request->get('page/d', 1);
             $limit = $this->request->get('limit/d', 6);
-            $search = $this->request->get('search', false);
+            $search = $this->request->get('title', false);
             $user = $this->auth->getUser();
             $user_id = $user->id;
             $flag = false;

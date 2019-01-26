@@ -20,7 +20,7 @@ class Document extends Validate
      */
     protected $rule = [
         'title'     => 'require',
-        'cate_id'    => 'cate_id',
+        'cate_id'    => 'require',
         'url'     => 'require',
         'province'  => 'require',
         'city'      => 'require',

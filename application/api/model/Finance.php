@@ -15,6 +15,13 @@ use think\Model;
 
 class Finance extends Model
 {
+    protected $hidden = [
+        'weigh',
+        'seo_title',
+        'seo_keyword',
+        'seo_desc',
+        'updatetime'
+    ];
     /**
      * 创建时间获取器
      * @param $value
@@ -81,7 +88,7 @@ class Finance extends Model
     public function getDetail($id)
     {
         $data = self::get($id);
-        $data->setInc('reading_count');
+        $data && $data->setInc('reading_count');
         return $data;
     }
 }

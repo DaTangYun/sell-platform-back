@@ -61,7 +61,7 @@ class Team extends Model
      */
     public function getLists($page,$limit,$user_id)
     {
-        return $this->with('apply')->where(['user_id'=>$user_id])->page($page,$limit)->select();
+        return $this->withCount('apply')->where(['user_id'=>$user_id])->page($page,$limit)->select();
     }
 
     /**

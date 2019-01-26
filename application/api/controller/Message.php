@@ -52,7 +52,7 @@ class Message extends Api
     {
         if($this->request->isGet()){
             $id = input('get.id/d',0);
-            $detail = $this->model->edit($id,$userId = 0);
+            $detail = $this->model->getDetail($id);
             $this->success('获取成功',compact('detail'));
         }
     }
@@ -78,13 +78,12 @@ class Message extends Api
     }
 
     /**
-     * 添加头条
+     * 添加信息
      * @return \think\response\Json
      */
     public function add()
     {
         //判断用户是否登录，登录后才可以添加
-
         if ($this->request->isPost()) {
             //数据库字段 网页字段转换
             $params = [
@@ -96,7 +95,6 @@ class Message extends Api
                 'province'          => 'province',
                 'city'              => 'city',
                 'area'              => 'area',
-
             ];
             $param_data = $this->buildParam($params);
             //数据验证
