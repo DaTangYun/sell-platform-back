@@ -2,8 +2,8 @@
 
 return [
     'Title'  =>  '标题',
-    'User_id'  =>  '用户id',
-    'Ability_id'  =>  '分类id',
+    'User_id'  =>  '用户名',
+    'Ability_id'  =>  '所属分类',
     'Image'  =>  '图片',
     'Desc'  =>  '描述',
     'Price'  =>  '价格',

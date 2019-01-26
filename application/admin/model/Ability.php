@@ -36,7 +36,16 @@ class Ability extends Model
         return isset($list[$value]) ? $list[$value] : '';
     }
 
+    
+    public function user()
+    {
+        return $this->belongsTo('User','user_id')->bind('username');
+    }
 
+    public function cate()
+    {
+        return $this->belongsTo('AbilityCate','ability_id')->bind(['cate_title' => 'title']);
+    }
 
 
 }
