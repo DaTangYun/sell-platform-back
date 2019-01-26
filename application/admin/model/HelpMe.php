@@ -23,8 +23,24 @@ class HelpMe extends Model
         'end_time_text',
         'update_time_text'
     ];
-    
 
+    /**
+     * 关联用户模型
+     * @return \think\model\relation\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('User')->bind(['username']);
+    }
+
+    /**
+     * 关联需求模型
+     * @return \think\model\relation\BelongsTo
+     */
+    public function demand()
+    {
+        return $this->belongsTo('HelpMeCate','demand_id')->bind(['demands'=>'title']);
+    }
     protected static function init()
     {
         self::afterInsert(function ($row) {
