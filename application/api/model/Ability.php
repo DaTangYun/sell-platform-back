@@ -56,14 +56,18 @@ class Ability extends Model
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function getAllAbility($page,$limit,$title,$flag = false,$user_id = 0)
+    public function getAllAbility($page,$limit,$title,$cate_id,$flag = false,$user_id = 0)
     {
         //条件筛选
         $map = [];
         $title && $map['title'] = ['like', '%' . trim($title) . '%'];
         $flag  && $map['status'] = '2';
         $user_id > 0 && $map['user_id'] = $user_id;
-        return self::where($map)->order(['id'=>'desc'])->page($page,$limit)->select();
+        $cate_id > 0 && $map['ability_id'] = $cate_id;
+        //输出字段
+        $field = [];
+        $flag  && $field = ['id','title','image','price','mobile','desc'];
+        return self::field($field)->where($map)->order(['id'=>'desc'])->page($page,$limit)->select();
     }
 
     /**
@@ -74,7 +78,7 @@ class Ability extends Model
      * @return int|string
      * @throws \think\Exception
      */
-    public function getTotal($title,$flag = false,$user_id = 0)
+    public function getTotal($title,$cate_id,$flag = false,$user_id = 0)
     {
         //条件筛选
         $map = [];

@@ -48,6 +48,7 @@ class HelpMe extends Api
             $page = $this->request->get('page/d', 1);
             $limit = $this->request->get('limit/d', 6);
             $title = $this->request->get('title', false);
+            $cate_id = $this->request->get('cate_id', 0);
             $ability = $this->model->getAllHelp($page, $limit, $title,true);
             $total = $this->model->getTotal($title);
             $this->success('获取数据成功', compact('ability', 'total'));

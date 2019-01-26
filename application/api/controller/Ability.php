@@ -14,6 +14,7 @@ namespace app\api\controller;
 use app\common\controller\Api;
 use app\api\model\Ability as AbilityModel;
 use app\api\validate\Ability as AbilityValidate;
+use app\api\model\AbilityCate as AbilityCateModel;
 
 /**
  * 帮帮我控制器
@@ -48,8 +49,10 @@ class Ability extends Api
             $page = $this->request->get('page/d', 1);
             $limit = $this->request->get('limit/d', 6);
             $title = $this->request->get('title', false);
-            $ability = $this->model->getAllAbility($page, $limit, $title,true);
-            $total = $this->model->getTotal($title);
+            $user_id = $this->request->get('user_id/d',0);
+            $cate_id = $this->request->get('cate_id', 0);
+            $ability = $this->model->getAllAbility($page, $limit, $title,$cate_id,true,$user_id);
+            $total = $this->model->getTotal($title,$cate_id,true,$user_id);
             $this->success('获取数据成功', compact('ability', 'total'));
         }
     }
@@ -86,10 +89,11 @@ class Ability extends Api
             $page = $this->request->get('page/d', 1);
             $limit = $this->request->get('limit/d', 6);
             $title = $this->request->get('title', false);
+            $cate_id = $this->request->get('cate_id', 0);
             $user = $this->auth->getUser();
             $user_id = $user->id;
-            $cases = $this->model->getAllAbility($page, $limit, $title, true,$user_id);
-            $total = $this->model->getTotal($title, $user_id);
+            $cases = $this->model->getAllAbility($page, $limit, $title, $cate_id,true,$user_id);
+            $total = $this->model->getTotal($title,$cate_id,true, $user_id);
             $this->success('获取数据成功', compact('cases', 'total'));
         }
     }
@@ -135,6 +139,9 @@ class Ability extends Api
             }
 
         }
+        //显示分类
+        $cate = (new AbilityCateModel)->getAbilityCate();
+        $this->success('获取分类成功',compact('cate'));
     }
 
     /**
@@ -180,7 +187,9 @@ class Ability extends Api
                 return json(['code' => 0, 'msg' => $e->getMessage(),'data'=>[]]);
             }
         }
-        $this->success('获取数据成',compact('row'));
+        //显示分类
+        $cate = (new AbilityCateModel)->getAbilityCate();
+        $this->success('获取数据成',compact('row','cate'));
     }
 
     /**
