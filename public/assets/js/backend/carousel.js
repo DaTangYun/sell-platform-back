@@ -6,10 +6,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             Table.api.init({
                 extend: {
                     index_url: 'carousel/index',
-                    add_url: 'carousel/add',
                     edit_url: 'carousel/edit',
                     del_url: 'carousel/del',
-                    multi_url: 'carousel/multi',
                     table: 'carousel',
                 }
             });
