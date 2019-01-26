@@ -7,7 +7,7 @@ return [
     'Image'  =>  '图片',
     'Desc'  =>  '描述',
     'Price'  =>  '价格',
-    'Mobile'  =>  '手机号',
+    'Mobile'  =>  '联系电话',
     'Content'  =>  '服务介绍',
     'Status'  =>  '状态',
     'Status 0'  =>  '未通过',

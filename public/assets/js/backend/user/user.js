@@ -28,7 +28,6 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'username', title: __('Username'), operate: 'LIKE'},
                         {field: 'avatar', title: __('Avatar'), formatter: Table.api.formatter.image, operate: false},
                         {field: 'nickname', title: __('Nickname'), operate: 'LIKE'},
-                        {field: 'email', title: __('Email'), operate: 'LIKE'},
                         {field: 'mobile', title: __('Mobile'), operate: 'LIKE'},
                         {field: 'province', title: __('省')},
                         {field: 'city', title: __('市')},
@@ -36,8 +35,28 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'is_identy', title: __('是否认证'), searchList: {"0":__('未认证'),"1":__('认证中'),"2":__('已认证')}, formatter: Table.api.formatter.status},
                         {field: 'status', title: __('Status'), formatter: Table.api.formatter.status, searchList: {normal: __('Normal'), hidden: __('Hidden')}},
                         {field: 'expiretime', title: __('过期时间'), operate:'RANGE', addclass:'datetimerange', formatter: Table.api.formatter.datetime},
-                        {field: 'updatetime', title: __('Updatetime'), operate:'RANGE', addclass:'datetimerange', formatter: Table.api.formatter.datetime},
                         {field: 'createtime', title: __('Createtime'), operate:'RANGE', addclass:'datetimerange', formatter: Table.api.formatter.datetime},
+                        {
+                            field: 'buttons',
+                            width: "120px",
+                            title: __('用户评价'),
+                            table: table,
+                            events: Table.api.events.operate,
+                            buttons: [
+                                {
+                                    name: 'detail',
+                                    text: __('评价'),
+                                    title: __('评价列表'),
+                                    classname: 'btn btn-xs btn-primary btn-dialog',
+                                    icon: 'fa fa-gratipay',
+                                    extend: 'data-area=\'["1000px","80%"]\'',
+                                    url: function(row){
+                                        return 'user_comment/index?user_id='+row.id;
+                                    }
+                                }
+                            ],
+                            formatter: Table.api.formatter.buttons
+                        },
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
                     ]
                 ]
