@@ -3,6 +3,8 @@
 namespace app\common\controller;
 
 use app\common\library\Auth;
+use app\common\library\Token;
+use app\common\model\User;
 use think\Config;
 use think\exception\HttpResponseException;
 use think\exception\ValidateException;
@@ -120,8 +122,10 @@ class Api
             // 判断是否需要验证权限
             if (!$this->auth->match($this->noNeedRight))
             {
+                $data = Token::get($token);
+                $is_identy = User::getById($data['user_id'])->is_identy;
                 // 判断控制器和方法判断是否有对应权限
-                if (!$this->auth->check($path))
+                if (!$this->auth->check($path) && $is_identy != '2')
                 {
                     $this->error(__('You have no permission'), null, 403);
                 }

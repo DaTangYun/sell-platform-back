@@ -23,7 +23,7 @@ use app\api\validate\HelpMe as HelpMeValidate;
 class HelpMe extends Api
 {
     protected $noNeedLogin = ['lists','detail'];
-    protected $noNeedRight = ['*'];
+    protected $noNeedRight = ['lists','detail'];
     /**
      * 当前模型对象
      * @var \app\api\model\
