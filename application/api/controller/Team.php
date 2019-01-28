@@ -27,7 +27,7 @@ class Team extends Api
 {
     protected $model = null;
     protected $noNeedLogin = ['lists','detail'];
-    protected $noNeedRight = ['*'];
+    protected $noNeedRight = ['lists','detail'];
     /**
      * 控制器初始化
      */
@@ -199,7 +199,6 @@ class Team extends Api
         if ($this->request->isGet()){
             $detail = $this->model->getDetail($id);
             $member = (new TeamApplyModel)->getTeamMember($id);
-            collection($member)->hidden(['mobile','user_id']);
             $this->success('获取成功',compact('detail','member'));
         }
     }

@@ -54,7 +54,7 @@ class TeamApply extends Model
      */
     public function getTeamMember($id)
     {
-        return self::where(['team_id' => $id, 'status' => '2'])->select();
+        return self::field(['id','name','excellence','desc'])->where(['team_id' => $id, 'status' => '2'])->select();
     }
 
     /**
