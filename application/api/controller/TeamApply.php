@@ -23,7 +23,7 @@ use app\api\validate\TeamApply as TeamApplyValidate;
 class TeamApply extends Api
 {
     protected $noNeedLogin = [''];
-    protected $noNeedRight = ['*'];
+    protected $noNeedRight = [''];
     /**
      * 当前模型对象
      * @var \app\api\model\

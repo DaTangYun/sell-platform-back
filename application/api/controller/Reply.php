@@ -12,7 +12,7 @@ class Reply extends Api
 {
 
     protected $noNeedLogin = [''];
-    protected $noNeedRight = ['*'];
+    protected $noNeedRight = [''];
 
     /**
      * 当前模型对象
