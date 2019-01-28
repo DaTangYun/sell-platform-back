@@ -27,7 +27,7 @@ class Team extends Api
 {
     protected $model = null;
     protected $noNeedLogin = ['lists','detail'];
-    protected $noNeedRight = ['*'];
+    protected $noNeedRight = ['lists','detail'];
     /**
      * 控制器初始化
      */

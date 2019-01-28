@@ -12,7 +12,7 @@ class AbilityMessage extends Api
 {
 
     protected $noNeedLogin = ['lists'];
-    protected $noNeedRight = ['*'];
+    protected $noNeedRight = ['lists'];
 
     /**
      * 当前模型对象
