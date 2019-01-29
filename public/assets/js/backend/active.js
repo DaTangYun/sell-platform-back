@@ -48,6 +48,10 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                                     extend: 'data-area=\'["1000px","80%"]\'',
                                     url: function(row){
                                         return 'user_active/index?active_id='+row.id;
+                                    },
+                                    callback: function (data) {
+                                        console.log(data);
+                                        console.log(111111111111111111111111111);
                                     }
                                 }
                             ],

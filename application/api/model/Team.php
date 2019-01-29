@@ -65,6 +65,20 @@ class Team extends Model
     }
 
     /**
+     * 查询团队总数
+     * @param $page
+     * @param $limit
+     * @param $user_id
+     * @return false|\PDOStatement|string|\think\Collection
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getTotal($user_id)
+    {
+        return $this->where('user_id',$user_id) ->count('id');
+    }
+    /**
      * 团队详情
      * @param $id
      * @return Team|null

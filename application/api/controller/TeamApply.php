@@ -73,22 +73,19 @@ class TeamApply extends Api
         }
     }
     /**
-     * 添加案例
+     * 申请团队
      * @return \think\response\Json
      */
     public function add()
     {
-        //判断用户是否登录，登录后才可以添加
-
         if ($this->request->isPost()) {
             //数据库字段 网页字段转换
             $params = [
-                'team_id' => 'team_id',
-                'name' => 'name',
-                'mobile' => 'mobile',
-                'excellence' => 'excellence',
-                'desc' => 'desc',
-
+                'team_id'   => 'team_id',
+                'name'      => 'name',
+                'mobile'    => 'mobile',
+                'excellence'=> 'excellence',
+                'desc'      => 'desc',
             ];
             $param_data = $this->buildParam($params);
             //数据验证
@@ -99,13 +96,16 @@ class TeamApply extends Api
             //当前用户id
             $user = $this->auth->getUser();
             $param_data['user_id'] = $user->id;
-            //实例化案例模型
+            if ($this->model->where(['team_id'=>$param_data['team_id'],'user_id'=>$user->id])->find()) {
+                $this->error('您已申请过该团队');
+            }
+            //实例化团队模型
             try {
                 $result = $this->model->allowField(true)->save($param_data);
                 if ($result !== false) {
-                    return json(['code' => 1, 'msg' => '添加成功','data'=>[]]);
+                    return json(['code' => 1, 'msg' => '申请加入成功','data'=>[]]);
                 } else {
-                    return json(['code' => 0, 'msg' => '添加失败','data'=>[]]);
+                    return json(['code' => 0, 'msg' => '申请加入失败','data'=>[]]);
                 }
             } catch (\think\exception\PDOException $e) {
                 return json(['code' => 0, 'msg' => $e->getMessage(),'data'=>[]]);
@@ -117,24 +117,23 @@ class TeamApply extends Api
     }
 
     /**
-     * 修改案例
+     * 修改团队
      * @param null $id
      * @return \think\response\Json
      */
     public function edit($id = null)
     {
-        //判断修改案例的id是否存在
+        //判断修改团队的id是否存在
         $row = $this->model->get($id);
         if (!$row) $this->error('没有查找到数据');
         if ($this->request->isPost()) {
             //数据库字段 网页字段转换
             $params = [
-                'team_id' => 'team_id',
-                'name' => 'name',
-                'mobile' => 'mobile',
-                'excellence' => 'excellence',
-                'desc' => 'desc',
-
+                'team_id'   => 'team_id',
+                'name'      => 'name',
+                'mobile'    => 'mobile',
+                'excellence'=> 'excellence',
+                'desc'      => 'desc'
             ];
             $param_data = $this->buildParam($params);
             //数据验证
@@ -145,9 +144,9 @@ class TeamApply extends Api
             //当前用户id
             $user = $this->auth->getUser();
             $user_id = $user->id;
-            //只允许添加该案例的修改
+            //只允许添加该团队的修改
             if ($row->user_id != $user_id) $this->error('很抱歉，你没有操作权限');
-            //实例化案例模型
+            //实例化团队模型
             try {
                 $result = $row->allowField(true)->save($param_data);
                 if ($result !== false) {
@@ -165,20 +164,20 @@ class TeamApply extends Api
     }
 
     /**
-     * 删除案例
+     * 删除申请
      * @param null $id
      * @return \think\response\Json
      */
     public function del($id = null)
     {
-        //判断修改案例的id是否存在
+        //判断修改团队的id是否存在
         $row = $this->model->get($id);
         if (!$row) $this->error('没有查找到数据');
         if ($this->request->isPost()){
             //当前用户id
             $user = $this->auth->getUser();
             $user_id = $user->id;
-            //只允许添加该案例的修改
+            //只允许添加该团队的修改
             if ($row->user_id != $user_id) $this->error('很抱歉，你没有操作权限');
             try {
                 $result = $row->delete();
@@ -218,7 +217,7 @@ class TeamApply extends Api
             $id = $this->request->post('id/d', 0);
             $status = $this->request->post('status/d', 1);
             try {
-                if ((new TeamApplyModel())->examineMember($id, $status)) {
+                if ($this->model->examineMember($id, $status)) {
                     return json(['code' => 1, 'msg' => '审核成功', 'data' => []]);
                 } else {
                     return json(['code' => 0, 'msg' => '审核失败', 'data' => []]);
