@@ -70,10 +70,14 @@ class UserActive extends Api
             //传递活动(优惠券)ID
             $active_id = input('post.active_id/d',0);
             //判断优惠券是都存在
-            $active = Active::get($active_id);
-            if (!$active) $this->error('优惠券不存在');
+            $active = ActiveModel::get($active_id);
+            if (!$active) $this->error('活动优惠不存在');
+            //判断优惠券是否过期
+            if ($active->getData('start_time') > time() || $active->getData('end_time') < time()) $this->error('活动已结束');
             //当前用户id
             $user = $this->auth->getUser();
+            //判断用户是否已领取
+            if ($this->model->where(['active_id'=>$active_id,'user_id'=>$user->id])->find()) $this->error('您已经领取该优惠券');       
             $param_data = [
                 'active_id'  => $active_id,
                 'user_id'    => $user->id,

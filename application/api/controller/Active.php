@@ -33,7 +33,7 @@ class Active extends Api
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = new AbilityModel;
+        $this->model = new ActiveModel;
 
     }
     /**
@@ -49,8 +49,8 @@ class Active extends Api
             $limit = $this->request->get('limit/d', 10);
             $title = $this->request->get('title/s', false);
             $user_id = $this->request->get('user_id/d',0);
-            $active = $this->model->getAllActive($page, $limit, $title,$user_id);
-            $total = $this->model->getTotal($title,$user_id);
+            $active = $this->model->getAllActive($page, $limit, $title,$user_id,true);
+            $total = $this->model->getTotal($title,$user_id,true);
             $this->success('获取数据成功', compact('active', 'total'));
         }
     }
@@ -73,8 +73,8 @@ class Active extends Api
             $title = '';
             $user = $this->auth->getUser();
             $user_id = $user->id;
-            $cases = $this->model->getAllActive($page, $limit, $title,$user_id);
-            $total = $this->model->getTotal($title, $user_id);
+            $cases = $this->model->getAllActive($page, $limit, $title,$user_id,false);
+            $total = $this->model->getTotal($title, $user_id,false);
             $this->success('获取数据成功', compact('cases', 'total'));
         }
     }
@@ -105,6 +105,8 @@ class Active extends Api
             //当前用户id
             $user = $this->auth->getUser();
             $param_data['user_id'] = $user->id;
+            $param_data['start_time'] = strtotime($param_data['start_time']);
+            $param_data['end_time']   = strtotime($param_data['end_time']);
             //实例化案例模型
             try {
                 $result = $this->model->allowField(true)->save($param_data);
@@ -118,9 +120,6 @@ class Active extends Api
             }
 
         }
-        //显示分类
-        $cate = (new AbilityCateModel)->getAbilityCate();
-        $this->success('获取分类成功',compact('cate'));
     }
 
     /**
@@ -153,10 +152,10 @@ class Active extends Api
             //当前用户id
             $user = $this->auth->getUser();
             $user_id = $user->id;
-            if ($row->user_id != $user_id) $this->error('很抱歉，你没有操作权限');
+            if ($active->user_id != $user_id) $this->error('很抱歉，你没有操作权限');
             //实例化案例模型
             try {
-                $result = $row->save($param_data);
+                $result = $active->save($param_data);
                 if ($result !== false) {
                     return json(['code' => 1, 'msg' => '修改成功','data'=>[]]);
                 } else {
