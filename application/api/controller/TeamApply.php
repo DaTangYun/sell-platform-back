@@ -73,7 +73,7 @@ class TeamApply extends Api
         }
     }
     /**
-     * 添加案例
+     * 添加团队成员
      * @return \think\response\Json
      */
     public function add()
@@ -117,7 +117,7 @@ class TeamApply extends Api
     }
 
     /**
-     * 修改案例
+     * 修改团队成员
      * @param null $id
      * @return \think\response\Json
      */
@@ -165,7 +165,7 @@ class TeamApply extends Api
     }
 
     /**
-     * 删除案例
+     * 删除团队成员
      * @param null $id
      * @return \think\response\Json
      */

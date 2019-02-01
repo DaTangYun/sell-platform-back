@@ -26,6 +26,10 @@ class Config extends Api
                 'logo'          => config('site.logo'),
                 'beian'         => config('site.beian'),
                 'beianhao'      => config('site.beianhao'),
+                'company_code'  => config('site.company_code'),
+                'person_code'      => config('site.person_code'),
+                'mobile'         => config('site.mobile'),
+                'phone'      => config('site.phone'),
                 'banquan'       => config('site.banquan')
             ];
     		$this->success('请求成功',compact('site'));
