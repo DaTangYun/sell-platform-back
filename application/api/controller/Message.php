@@ -38,7 +38,7 @@ class Message extends Api
             $page = input('get.page/d',1);
             $limit = input('get.limit/d',5);
             $title = input('get.title/s','');
-            $userId = input('get.userId/d',0);
+            $userId = input('get.user_id/d',0);
             $message = $this->model->getAll($page,$limit,$cateId,$title,$userId,true);
             $total = $this->model->getTotal($cateId,$title,$userId,true);
             $this->success('获取成功',compact('message','total'));
@@ -63,10 +63,10 @@ class Message extends Api
     public function profile()
     {
         if($this->request->isGet()){
-            $cateId = input('get.cate_id/d',0);
+            $cateId = 0;
             $page = input('get.page/d',1);
             $limit = input('get.limit/d',5);
-            $title = input('get.title/s','');
+            $title = '';
             $user = $this->auth->getUser();
             $userId = $user->id;
             //显示所有的

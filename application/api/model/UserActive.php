@@ -15,11 +15,11 @@ use think\Model;
 use think\Request;
 
 /**
- * 活动(优惠券)
+ * 参与的活动(领取的优惠券)
  * Class Active
  * @package app\api\model
  */
-class Active extends Model
+class UserActive extends Model
 {
     protected $autoWriteTimestamp = true;
 
@@ -45,17 +45,8 @@ class Active extends Model
     {
         return date('Y-m-d',$value);
     }
-
     /**
-     * 关联评论人模型
-     * @return \think\model\relation\BelongsTo
-     */
-    public function user()
-    {
-        return $this->belongsTo('User','user_id')->bind(['nickname', 'avatar']);
-    }
-    /**
-     * 活动(优惠券)列表
+     * 查询参与的活动(领取的优惠券)
      * @param      $page
      * @param      $limit
      * @param      $title
@@ -65,18 +56,9 @@ class Active extends Model
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function getAllActive($page,$limit,$title,$user_id,$flag)
+    public function getAllUserActive($page,$limit,$user_id)
     {
-        //过滤筛选
-        $map = [];
-        !empty($title) && $map['title'] = ['like', '%' . trim($title) . '%'];
-        $user_id > 0 && $map['user_id'] = $user_id;
-        if ($flag) {
-            $map['status'] = '2';
-            $map['start_time'] = ['<=',time()];
-            $map['end_time'] = ['>=',time()];
-        }
-        return self::where($map)->with('user')->order('weigh desc,id desc')->page($page)->limit($limit)->select();
+        return self::where('user_id',$user_id)->order(['id'=>'desc'])->page($page,$limit)->select();
     }
 
     /**
@@ -87,17 +69,11 @@ class Active extends Model
      * @return int|string
      * @throws \think\Exception
      */
-    public function getTotal($title,$user_id,$flag)
+    public function getTotal($user_id = 0)
     {
         //条件筛选
         $map = [];
-        !empty($title) && $map['title'] = ['like', '%' . trim($title) . '%'];
         $user_id > 0 && $map['user_id'] = $user_id;
-        if ($flag) {
-            $map['status'] = '2';
-            $map['start_time'] = ['<=',time()];
-            $map['end_time'] = ['>=',time()];
-        }
-        return self::where($map)->count();
+        return self::where($map)->order(['id'=>'desc'])->count();
     }
 }

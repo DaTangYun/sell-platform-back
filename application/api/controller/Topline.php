@@ -38,7 +38,7 @@ class Topline extends Api
             $page = input('get.page/d',1);
             $limit = input('get.limit/d',5);
             $title = input('get.title/s','');
-            $userId = input('get.userId/d',false);
+            $userId = input('get.user_id/d',false);
             //显示通过
             $topline = $this->model->getAll($page,$limit,$cateId,$title,$userId,true);
             $total = $this->model->getTotal($cateId,$title,$userId,true);
@@ -62,11 +62,11 @@ class Topline extends Api
      */
     public function profile()
     {
-        if($this->request->isPost()){
-            $cateId = input('get.cate_id/d',0);
+        if($this->request->isGet()){
+            $cateId = 0;
             $page = input('get.page/d',1);
             $limit = input('get.limit/d',5);
-            $title = input('get.title/s','');
+            $title = '';
             $user = $this->auth->getUser();
             $userId = $user->id;
             //显示所有的
