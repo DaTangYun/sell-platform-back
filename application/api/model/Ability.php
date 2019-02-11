@@ -85,6 +85,7 @@ class Ability extends Model
         $title && $map['title'] = ['like', '%' . trim($title) . '%'];
         $flag  && $map['status'] = '2';
         $user_id > 0 && $map['user_id'] = $user_id;
+        $cate_id > 0 && $map['ability_id'] = $cate_id;
         return self::where($map)->order(['id'=>'desc'])->count();
     }
 
