@@ -91,11 +91,11 @@ class Topline extends Api
                 'title' => 'title',
                 'topline_cate_id' => 'topline_cate_id',
                 'cover' => 'cover',
+                'desc'  => 'desc',
                 'content' => 'content',
                 'province' => 'province',
                 'city' => 'city',
-                'area' => 'area',
-
+                'area' => 'area'
             ];
             $param_data = $this->buildParam($params);
             //数据验证
@@ -138,11 +138,11 @@ class Topline extends Api
                 'title' => 'title',
                 'topline_cate_id' => 'topline_cate_id',
                 'cover' => 'cover',
+                'desc'  => 'desc',
                 'content' => 'content',
                 'province' => 'province',
                 'city' => 'city',
                 'area' => 'area',
-
             ];
             $param_data = $this->buildParam($params);
             //数据验证

@@ -34,7 +34,7 @@ class UserComment extends Api
     {
     	if($this->request->isGet()){
             $page = input('get.page/d',1);
-            $limit = input('get.limit/d',1);
+            $limit = input('get.limit/d',5);
             $userId = input('get.user_id/d',0);
             $comment = $this->model->getAll($page,$limit,$userId);
             $total = $this->model->getTotal($userId);

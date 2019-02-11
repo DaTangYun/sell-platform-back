@@ -90,11 +90,12 @@ class Message extends Api
                 'title'             => 'title',
                 'message_cate_id'   => 'message_cate_id',
                 'cover'             => 'cover',
+                'desc'              => 'desc',
                 'content'           => 'content',
                 'mobile'            => 'mobile',
                 'province'          => 'province',
                 'city'              => 'city',
-                'area'              => 'area',
+                'area'              => 'area'
             ];
             $param_data = $this->buildParam($params);
             //数据验证
@@ -138,12 +139,12 @@ class Message extends Api
                 'title'             => 'title',
                 'message_cate_id'   => 'message_cate_id',
                 'cover'             => 'cover',
+                'desc'              => 'desc',
                 'content'           => 'content',
                 'mobile'            => 'mobile',
                 'province'          => 'province',
                 'city'              => 'city',
-                'area'              => 'area',
-
+                'area'              => 'area'
             ];
             $param_data = $this->buildParam($params);
             //数据验证
