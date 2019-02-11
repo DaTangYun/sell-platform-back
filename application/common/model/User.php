@@ -20,6 +20,10 @@ class User Extends Model
     protected $append = [
         'url',
     ];
+    protected $hidden = [
+        'password',
+        'salt'
+    ];
 
     /**
      * 获取个人URL
