@@ -100,4 +100,44 @@ class Active extends Model
         }
         return self::where($map)->count();
     }
+
+    /**
+     * 活动个认中心列表
+     * @param      $page
+     * @param      $limit
+     * @param      $title
+     * @param bool $flag
+     * @return false|\PDOStatement|string|\think\Collection
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getProfileActive($page,$limit,$user_id)
+    {
+        //过滤筛选
+        $map = [];
+        $user_id > 0 && $map['user_id'] = $user_id;
+        return self::where($map)->with('user')->order('weigh desc,id desc')->withCount('active')->withCount('usedActive')->page($page)->limit($limit)->select();
+    }
+
+    /**
+     * @统计已领取: 
+     * @param {type} 
+     * @return: 
+     */
+    public function active()
+    {
+        return $this->hasMany('UserActive','active_id');
+    }
+
+    /**
+     * @统计已使用的: 
+     * @param {type} 
+     * @return: 
+     */
+    public function usedActive()
+    {
+        return $this->hasMany('UserActive','active_id')->where('status','1');
+    }
+
 }

@@ -70,12 +70,11 @@ class Active extends Api
             //接收分页页数和每页显示的数据
             $page = $this->request->get('page/d', 1);
             $limit = $this->request->get('limit/d', 6);
-            $title = '';
             $user = $this->auth->getUser();
             $user_id = $user->id;
-            $cases = $this->model->getAllActive($page, $limit, $title,$user_id,false);
-            $total = $this->model->getTotal($title, $user_id,false);
-            $this->success('获取数据成功', compact('cases', 'total'));
+            $active = $this->model->getProfileActive($page, $limit,$user_id);
+            $total = $this->model->getTotal('', $user_id,false);
+            $this->success('获取数据成功', compact('active', 'total'));
         }
     }
 

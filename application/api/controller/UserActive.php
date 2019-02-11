@@ -133,7 +133,30 @@ class UserActive extends Api
             } catch (\Exception $e) {
                 return json(['code' => 0, 'msg' => $e->getMessage(),'data'=>[]]);
             }
+        }
+    }
 
+    /**
+     *使用优惠券
+     * @param null $id
+     * @return \think\response\Json
+     */
+    public function used($id = null)
+    {
+        //判断优惠券的id是否存在
+        $row = $this->model->get($id);
+        if (!$row) $this->error('没有查找到数据');
+        if($this->request->isPost()){
+             //当前用户id
+             $user = $this->auth->getUser();
+             $user_id = $user->id;
+             //权限检查
+             if ($row->user_id != $user_id) $this->error('很抱歉，你没有操作权限');
+        
+             if ($row->status != '0') $this->error('很抱歉，优惠券已使用');
+             $row->status = '1';
+             $row->save();
+             $this->success('使用成功');
         }
     }
 }
