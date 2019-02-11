@@ -107,7 +107,7 @@ class HelpMe extends Api
             //数据库字段 网页字段转换
             $params = [
                 'title'         => 'title',
-                'demand_id'     => 'demand_id/d',
+                'cate_id'       => 'cate_id',
                 'image'         => 'image',
                 'desc'          => 'desc',
                 'price'         => 'price',

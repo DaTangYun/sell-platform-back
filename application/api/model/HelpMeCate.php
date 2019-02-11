@@ -15,5 +15,16 @@ use think\Model;
 
 class HelpMeCate extends Model
 {
+    /**
+     * 获取帮帮我分类
+     * @return false|\PDOStatement|string|\think\Collection
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getHelpMeCate()
+    {
+        return self::field(['id','title'])->select();
+    }
 
 }

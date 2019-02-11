@@ -25,7 +25,7 @@ class HelpMe extends Validate
      */
     protected $rule = [
         'title'         => 'require',
-        'demand_id'     => 'require',
+        'cate_id'     => 'require',
         'image'         => 'require',
         'desc'          => 'require',
         'price'         => 'require',
@@ -44,7 +44,7 @@ class HelpMe extends Validate
      */
     protected $message = [
         'title.require'     => '标题必须',
-        'demand_id.require' => '分类必须',
+        'cate_id.require' => '分类必须',
         'image.require'     => '图片必须',
         'desc.require'      => '描述必须',
         'content.require'   => '内容必须',
