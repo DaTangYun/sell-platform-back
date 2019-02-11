@@ -394,4 +394,27 @@ class User extends Api
             }
         }
     }
+
+    /**
+     * 账户设置
+     * 头像-昵称- 个人签名
+     */
+    public function changeInfo()
+    {
+        if($this->request->isPost()){
+            $user     = $this->auth->getUser();
+            $avatar   = input('post.avatar/s','');
+            $nickname = input('post.nickname/s','');
+            $bio      = input('post.bio/s','');
+            if (!$avatar || !$nickname || !$bio) {
+                $this->error('参数错误');
+            }
+            //保存数据
+            $user->avatar = $avatar;
+            $user->nickname = $nickname;
+            $user->bio = $bio;
+            $user->save();
+            $this->success('修改成功');
+        }
+    }
 }
