@@ -24,6 +24,6 @@ class FinanceCate extends Model
      */
     public function getAllCate()
     {
-        return self::limit(9)->order(['weigh'=>'desc','id'=>'desc'])->select();
+        return self::limit(9)->field(['id','name'])->order(['weigh'=>'desc','id'=>'desc'])->select();
     }
 }

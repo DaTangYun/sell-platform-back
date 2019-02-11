@@ -78,7 +78,7 @@ class Cases extends Model
         //构建查询
         $query = self::order(['weigh'=>'desc','id'=>'desc']);
         //判断是否有搜索条件
-        if ($search) $query->whereLike('title',$search);
+        $query->where('title','like', '%'.$search.'%');
         //判断用户id
         if($user_id > 0) $query->where(['user_id'=>$user_id]);
         //判断案例状态
