@@ -47,7 +47,7 @@ class Active extends Model
     }
 
     /**
-     * 关联评论人模型
+     * 关联人模型
      * @return \think\model\relation\BelongsTo
      */
     public function user()

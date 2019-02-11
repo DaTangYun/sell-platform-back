@@ -73,11 +73,7 @@ class TeamApply extends Api
         }
     }
     /**
-<<<<<<< HEAD
      * 添加团队成员
-=======
-     * 申请团队
->>>>>>> 8de0de4117c5955375bbd79104ca266c106440a5
      * @return \think\response\Json
      */
     public function add()
@@ -121,11 +117,7 @@ class TeamApply extends Api
     }
 
     /**
-<<<<<<< HEAD
      * 修改团队成员
-=======
-     * 修改团队
->>>>>>> 8de0de4117c5955375bbd79104ca266c106440a5
      * @param null $id
      * @return \think\response\Json
      */
@@ -172,11 +164,7 @@ class TeamApply extends Api
     }
 
     /**
-<<<<<<< HEAD
      * 删除团队成员
-=======
-     * 删除申请
->>>>>>> 8de0de4117c5955375bbd79104ca266c106440a5
      * @param null $id
      * @return \think\response\Json
      */

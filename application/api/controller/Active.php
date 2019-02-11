@@ -144,6 +144,8 @@ class Active extends Api
                 'end_time'      => 'end_time',
             ];
             $param_data = $this->buildParam($params);
+            $param_data['start_time'] = strtotime($param_data['start_time']);
+            $param_data['end_time']   = strtotime($param_data['end_time']);
             //数据验证
             $validate = new ActiveValidate;
             if (!$validate->check($param_data)) {
