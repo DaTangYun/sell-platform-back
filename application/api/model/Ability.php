@@ -67,7 +67,7 @@ class Ability extends Model
         //输出字段
         $field = [];
         $flag  && $field = ['id','title','image','price','mobile','desc'];
-        return self::field($field)->where($map)->order(['id'=>'desc'])->page($page,$limit)->select();
+        return self::field($field)->where($map)->order(['weigh'=>'desc','id'=>'desc'])->page($page,$limit)->select();
     }
 
     /**
@@ -86,7 +86,7 @@ class Ability extends Model
         $flag  && $map['status'] = '2';
         $user_id > 0 && $map['user_id'] = $user_id;
         $cate_id > 0 && $map['ability_id'] = $cate_id;
-        return self::where($map)->order(['id'=>'desc'])->count();
+        return self::where($map)->order(['weigh'=>'desc','id'=>'desc'])->count();
     }
 
     /**

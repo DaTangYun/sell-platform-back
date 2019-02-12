@@ -38,7 +38,7 @@ class CloudIntelligence extends Model
      */
     public function getCloudAll($page,$limit)
     {
-        return $this->field(['id','image','url'])->page($page,$limit)->select();
+        return $this->field(['id','image','url'])->page($page,$limit)->order('weigh desc,id desc')->select();
     }
 
     /**

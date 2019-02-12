@@ -21,13 +21,13 @@ class Config extends Api
     {
     	if($this->request->isGet()){
             $site = [
-                'header_logo'   => config('site.header_logo'),
-                'footer_logo'   => config('site.footer_logo'),
-                'logo'          => config('site.logo'),
+                'header_logo'   => $this->request->domain().config('site.header_logo'),
+                'footer_logo'   => $this->request->domain().config('site.footer_logo'),
+                'logo'          => $this->request->domain().config('site.logo'),
                 'beian'         => config('site.beian'),
                 'beianhao'      => config('site.beianhao'),
-                'company_code'  => config('site.company_code'),
-                'person_code'      => config('site.person_code'),
+                'company_code'  => $this->request->domain().config('site.company_code'),
+                'person_code'      => $this->request->domain().config('site.person_code'),
                 'mobile'         => config('site.mobile'),
                 'phone'      => config('site.phone'),
                 'banquan'       => config('site.banquan')
