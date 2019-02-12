@@ -28,7 +28,6 @@ class HelpMe extends Validate
         'cate_id'     => 'require',
         'image'         => 'require',
         'desc'          => 'require',
-        'price'         => 'require',
         'mobile'        => 'require|length:11',
         'province'      => 'require',
         'city'          => 'require',

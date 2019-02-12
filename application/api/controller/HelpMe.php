@@ -14,6 +14,7 @@ namespace app\api\controller;
 use app\common\controller\Api;
 use app\api\model\HelpMe as HelpMeModel;
 use app\api\validate\HelpMe as HelpMeValidate;
+use app\api\model\HelpMeCate;
 
 /**
  * 能帮会干控制器
@@ -48,9 +49,9 @@ class HelpMe extends Api
             $page = $this->request->get('page/d', 1);
             $limit = $this->request->get('limit/d', 6);
             $title = $this->request->get('title', false);
-            $cate_id = $this->request->get('cate_id', 0);
-            $ability = $this->model->getAllHelp($page, $limit, $title,true);
-            $total = $this->model->getTotal($title);
+            $user_id = $this->request->get('user_id', 0);
+            $ability = $this->model->getAllHelp($page, $limit, $title,true,$user_id);
+            $total = $this->model->getTotal($title,true,$user_id);
             $this->success('获取数据成功', compact('ability', 'total'));
         }
     }
@@ -110,7 +111,6 @@ class HelpMe extends Api
                 'cate_id'       => 'cate_id',
                 'image'         => 'image',
                 'desc'          => 'desc',
-                'price'         => 'price',
                 'mobile'        => 'mobile',
                 'content'       => 'content',
                 'contact'       => 'contact',
@@ -143,6 +143,9 @@ class HelpMe extends Api
             }
 
         }
+        //显示分类
+        $cate = (new HelpMeCate)->getHelpMeCate();
+        $this->success('获取分类成功',compact('cate'));
     }
 
     /**
@@ -159,10 +162,9 @@ class HelpMe extends Api
             //数据库字段 网页字段转换
             $params = [
                 'title'         => 'title',
-                'demand_id'     => 'demand_id/d',
+                'cate_id'     => 'cate_id/d',
                 'image'         => 'image',
                 'desc'          => 'desc',
-                'price'         => 'price',
                 'mobile'        => 'mobile',
                 'content'       => 'content',
                 'contact'       => 'contact',
@@ -195,7 +197,9 @@ class HelpMe extends Api
                 return json(['code' => 0, 'msg' => $e->getMessage(),'data'=>[]]);
             }
         }
-        $this->success('获取数据成',compact('row'));
+        //显示分类
+        $cate = (new HelpMeCate)->getHelpMeCate();
+        $this->success('获取数据成',compact('row','cate'));
     }
 
     /**

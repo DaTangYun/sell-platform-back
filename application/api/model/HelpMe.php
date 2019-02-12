@@ -22,14 +22,14 @@ class HelpMe extends Model
 {
     protected $autoWriteTimestamp = true;
 
-    protected $createTime = 'createtime';
-    protected $updateTime = 'updatetime';
+    protected $createTime = 'create_time';
+    protected $updateTime = 'update_time';
     /**
      * 时间获取器
      * @param $value
      * @return false|string
      */
-    public function getCreatetimeAttr($value)
+    public function getCreateTimeAttr($value)
     {
         return date('Y-m-d H:i:s',$value);
     }
@@ -51,7 +51,7 @@ class HelpMe extends Model
         $title && $map['title'] = ['like', '%' . trim($title) . '%'];
         $flag  && $map['status'] = '2';
         $user_id > 0 && $map['user_id'] = $user_id;
-        return self::where($map)->order(['id'=>'desc'])->page($page,$limit)->select();
+        return self::where($map)->order('weigh desc,id desc')->page($page,$limit)->select();
     }
 
     /**
