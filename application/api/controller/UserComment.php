@@ -49,7 +49,7 @@ class UserComment extends Api
         if($this->request->isGet()){
             $page = input('get.page/d',1);
             $limit = input('get.limit/d',5);
-            $user = $this->auth->getUser();
+            $user = $this->auth->getUser();``
             $userId = $user->id;
             $comment = $this->model->getAll($page,$limit,$userId);
             $total = $this->model->getTotal($userId);
