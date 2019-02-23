@@ -1,7 +1,6 @@
 <?php
-
 namespace app\common\controller;
-
+header('Access-Control-Allow-Origin:http://localhost:3000');
 use app\common\library\Auth;
 use app\common\library\Token;
 use app\common\model\User;
