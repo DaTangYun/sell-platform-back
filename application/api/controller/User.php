@@ -316,7 +316,7 @@ class User extends Api
         if ($this->request->isGet()){
             //接收分页页数和每页的数据
             $page = $this->request->get('page/d',1);
-            $limit = $this->request->get('limit/d',10);
+            $limit = $this->request->get('limit/d',12);
             //显示秀秀我的数据
             $showme = (new UserModel)->getAllUser($page,$limit);
             $this->success('获取秀秀我数据成功',compact('showme'));

@@ -21,6 +21,15 @@ class User extends Model
         return Request::instance()->domain().$value;
     }
 
+    public function getBioAttr($value)
+    {
+
+        if (mb_strlen($value,'utf-8') > 14) {
+            return mb_substr($value,0,10,"utf-8").'...';
+        }
+        return $value;
+    }
+
     /**
      * 秀秀我数据
      * @param $page
