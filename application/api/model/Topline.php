@@ -66,7 +66,7 @@ class Topline extends Model
         $userId > 0 && $map['user_id'] = $userId;
         $flag && $map['status'] = '2';
         //定义显示字段
-        $field = ['id','title','topline_cate_id','cover','desc','reading_count'];
+        $field = ['id','title','topline_cate_id','cover','desc','reading_count','createtime'];
         return self::with(['cate'])->field($field)->where($map)->order('weigh desc,id desc')->page($page)->limit($limit)->select();
     }
     /**
