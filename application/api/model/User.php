@@ -41,6 +41,20 @@ class User extends Model
      */
     public function getAllUser($page,$limit)
     {
-        return $this->field(['id','nickname','avatar','bio'])->page($page,$limit)->order('weigh desc')->select();
+        return $this->field(['id','nickname','avatar','bio'])
+            ->where(['is_identy'=>'2','status'=>'normal'])
+            ->page($page,$limit)
+            ->order('weigh desc')
+            ->select();
+    }
+
+    /**
+     * 获取总页数
+     * @return int|string
+     * @throws \think\Exception
+     */
+    public function getTotal()
+    {
+        return $this->where(['is_identy'=>'2','status'=>'normal'])->count();
     }
 }
