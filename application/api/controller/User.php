@@ -319,7 +319,9 @@ class User extends Api
             $limit = $this->request->get('limit/d',12);
             //显示秀秀我的数据
             $showme = (new UserModel)->getAllUser($page,$limit);
-            $this->success('获取秀秀我数据成功',compact('showme'));
+            //获取总数
+            $total = (new UserModel())->getTotal();
+            $this->success('获取秀秀我数据成功',compact('showme','total'));
         }
     }
 
