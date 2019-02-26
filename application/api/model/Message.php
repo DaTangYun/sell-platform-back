@@ -47,6 +47,21 @@ class Message extends Model
     {
         return date('Y-m-d',$value);
     }
+
+    /**
+     * 描述获取器
+     * @param $value
+     * @return false|string
+     */
+    public function getDescAttr($value)
+    {
+
+        if (mb_strlen($value,'utf-8') > 120) {
+            return mb_substr($value,0,120,"utf-8").'...';
+        }
+        return $value;
+    }
+
     /**
      * 关联分类模型
      * @return \think\model\relation\BelongsTo

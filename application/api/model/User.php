@@ -25,7 +25,7 @@ class User extends Model
     {
 
         if (mb_strlen($value,'utf-8') > 14) {
-            return mb_substr($value,0,10,"utf-8").'...';
+            return mb_substr($value,0,12,"utf-8").'...';
         }
         return $value;
     }
