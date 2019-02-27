@@ -12,6 +12,7 @@ namespace app\api\model;
 
 
 use think\Model;
+use think\Request;
 
 /**
  * 帮帮我模型
@@ -33,6 +34,16 @@ class HelpMe extends Model
     {
         return date('Y-m-d H:i:s',$value);
     }
+
+    /**
+     * 图片获取器
+     * @param $value
+     * @return string
+     */
+    public function getImageAttr($value)
+    {
+        return Request::instance()->domain().$value;
+    }
     /**
      * 查询所有的能帮会干
      * @param      $page
@@ -51,7 +62,7 @@ class HelpMe extends Model
         $title && $map['title'] = ['like', '%' . trim($title) . '%'];
         $flag  && $map['status'] = '2';
         $user_id > 0 && $map['user_id'] = $user_id;
-        return self::where($map)->order('weigh desc,id desc')->page($page,$limit)->select();
+        return self::field(['content'],truee)->where($map)->order('weigh desc,id desc')->page($page,$limit)->select();
     }
 
     /**
