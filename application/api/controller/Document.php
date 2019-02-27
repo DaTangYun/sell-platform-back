@@ -53,11 +53,11 @@ class Document extends Api
             $page = $this->request->get('page/d',1);
             $limit = $this->request->get('limit/d',10);
             $title = $this->request->get('title', false);
-            $user_id = $this->request->get('userId', 0);
-            $cate_id = $this->request->get('cate_id', 0);
+            $user_id = $this->request->get('user_id/d', 0);
+            $cate_id = $this->request->get('cate_id/d', 0);
             $document = $this->model->getAllDocument($page,$limit,$title,$cate_id,$user_id,true);
             $total = $this->model->getTotal($title,$cate_id,$user_id,true);
-            $this->success('获取数据成功',compact('document'));
+            $this->success('获取数据成功',compact('document','total'));
         }
     }
 

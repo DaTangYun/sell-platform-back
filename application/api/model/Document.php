@@ -60,7 +60,7 @@ class Document extends Model
      */
     public function user()
     {
-        return $this->belongsTo('User')->bind('username');
+        return $this->belongsTo('User','user_id')->bind('username');
     }
 
     /**
@@ -75,11 +75,12 @@ class Document extends Model
     public function getAllDocument($page,$limit,$title,$cate_id,$user_id,$flag = false)
     {
         //构建查询
-        $query = self::with(['cate','user'])->field(['id','title','cate_id','createtime']);
+        $query = self::with(['cate','user'])->field(['id','title','cate_id','user_id','createtime']);
         //判断是否有搜索条件
         $query->where('title','like', '%'.$title.'%');
         //判断文档分类
-        $query->where(['cate_id'=>$cate_id]);
+        if ($cate_id)
+            $query->where(['cate_id'=>$cate_id]);
         //判断用户id
         if($user_id > 0) $query->where(['user_id'=>$user_id]);
         //判断案例状态
@@ -105,7 +106,8 @@ class Document extends Model
         //判断是否有搜索条件
         if ($search) $query->whereLike('title',$search);
         //判断文档分类
-        $query->where(['cate_id'=>$cate_id]);
+        if ($cate_id)
+            $query->where(['cate_id'=>$cate_id]);
         //判断用户id
         if($user_id > 0) $query->where(['user_id'=>$user_id]);
         //判断案例状态
