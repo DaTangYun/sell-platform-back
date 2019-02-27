@@ -49,6 +49,20 @@ class User extends Model
     }
 
     /**
+     * 秀秀我个人信息
+     * @param $page
+     * @param $limit
+     * @return false|\PDOStatement|string|\think\Collection
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getShowmeInfo($userId)
+    {
+        return self::where('id',$userId)->field('id,nickname,avatar,bio')->find();
+    }
+
+    /**
      * 获取总页数
      * @return int|string
      * @throws \think\Exception

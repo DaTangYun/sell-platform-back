@@ -15,8 +15,8 @@ use app\api\model\User as UserModel;
 class User extends Api
 {
 
-    protected $noNeedLogin = ['login', 'mobilelogin', 'register', 'resetpwd', 'changeemail', 'third','showme'];
-    protected $noNeedRight = ['login', 'mobilelogin', 'register', 'resetpwd', 'changeemail', 'third','showme','identy'];
+    protected $noNeedLogin = ['login', 'mobilelogin', 'register', 'resetpwd', 'changeemail', 'third','showme','showmeInfo'];
+    protected $noNeedRight = ['login', 'mobilelogin', 'register', 'resetpwd', 'changeemail', 'third','showme','showmeInfo','identy'];
 
     public function _initialize()
     {
@@ -325,6 +325,24 @@ class User extends Api
         }
     }
 
+    /**
+     * 秀秀我个人信心
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function showmeInfo()
+    {
+        //设置过滤方法
+        $this->request->filter(['strip_tags']);
+        if ($this->request->isGet()){
+            //接收分页页数和每页的数据
+            $userId = input('get.user_id/d',1);
+            $showmeInfo = (new UserModel)->getShowmeInfo($userId);
+            $this->success('获取信息成功',compact('showmeInfo'));
+        }
+
+    }
     /**
      * 用户认证
      * 
