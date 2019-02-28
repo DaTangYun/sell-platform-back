@@ -59,7 +59,7 @@ class User extends Model
      */
     public function getShowmeInfo($userId)
     {
-        return self::where('id',$userId)->field('id,nickname,avatar,bio')->find();
+        return self::where('id',$userId)->field('id,nickname,avatar,bio,is_identy')->find();
     }
 
     /**
