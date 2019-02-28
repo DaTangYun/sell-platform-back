@@ -53,6 +53,45 @@ class Team extends Api
             $this->success('获取团队列表成功',compact('team','total'));
         }
     }
+
+    /**
+     * 团队详情
+     * @param $id
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function detail($id)
+    {
+        //设置过滤方法
+        $this->request->filter(['strip_tags']);
+        if ($this->request->isGet()){
+            $detail = $this->model->getDetail($id);
+            $member = (new TeamApplyModel)->getTeamMember($id);
+           if ($member) collection($member)->hidden(['mobile','user_id']);
+            $this->success('获取成功',compact('detail','member'));
+        }
+    }
+
+    /**
+     * 查询团队成员
+     * @param $id
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function member($id)
+    {
+        //设置过滤方法
+        $this->request->filter(['strip_tags']);
+        if ($this->request->isGet()){
+            $page = $this->request->get('page',1);
+            $limit = $this->request->get('limit',10);
+            $member = (new TeamApplyModel)->getMember($page,$limit,$id);
+            $this->success('获取成功',compact('member'));
+        }
+    }
+
     /**
      * 个人中心团队列表
      */
@@ -186,44 +225,5 @@ class Team extends Api
 
         }
     }
-
-    /**
-     * 团队详情
-     * @param $id
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
-     */
-    public function detail($id)
-    {
-        //设置过滤方法
-        $this->request->filter(['strip_tags']);
-        if ($this->request->isGet()){
-            $detail = $this->model->getDetail($id);
-            $member = (new TeamApplyModel)->getTeamMember($id);
-           if ($member) collection($member)->hidden(['mobile','user_id']);
-            $this->success('获取成功',compact('detail','member'));
-        }
-    }
-
-    /**
-     * 查询团队成员
-     * @param $id
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
-     */
-    public function member($id)
-    {
-        //设置过滤方法
-        $this->request->filter(['strip_tags']);
-        if ($this->request->isGet()){
-            $page = $this->request->get('page',1);
-            $limit = $this->request->get('limit',10);
-            $member = (new TeamApplyModel)->getMember($page,$limit,$id);
-            $this->success('获取成功',compact('member'));
-        }
-    }
-
 
 }
