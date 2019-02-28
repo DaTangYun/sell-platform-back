@@ -121,7 +121,7 @@ class Topline extends Model
         if ($userId) {
             $where['user_id'] = $userId;
         }
-        $data = self::where($where)->find();
+        $data = self::where($where)->with(['cate'])->find();
         $data->setInc('reading_count');
         return $data;
     }
