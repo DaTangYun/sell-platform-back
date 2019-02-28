@@ -52,7 +52,7 @@ class Message extends Api
     {
         if($this->request->isGet()){
             $id = input('get.id/d',0);
-            $detail = $this->model->getDetail($id);
+            $detail = $this->model->edit($id,0);
             $this->success('获取成功',compact('detail'));
         }
     }

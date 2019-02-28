@@ -136,18 +136,4 @@ class Message extends Model
     {
         return self::where(['id'=>$id,'user_id'=>$userId])->delete();
     }
-
-    /**
-     *
-     * @param $id
-     * @return Cases|null
-     * @throws \think\Exception
-     * @throws \think\exception\DbException
-     */
-    public function getDetail($id)
-    {
-        $data = self::get($id);
-        if ($data) $data->setInc('reading_count');
-        return $data;
-    }
 }
