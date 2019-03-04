@@ -34,6 +34,25 @@ class HelpMe extends Model
     {
         return date('Y-m-d H:i:s',$value);
     }
+
+    /**
+     * 开始时间获取器
+     * @param $value
+     * @return false|string
+     */
+    public function getStartTimeAttr($value)
+    {
+        return date('Y-m-d',$value);
+    }
+    /**
+     * 结束时间获取器
+     * @param $value
+     * @return false|string
+     */
+    public function getEndTimeAttr($value)
+    {
+        return date('Y-m-d',$value);
+    }
     /**
      * 关联分类模型
      * @return \think\model\relation\BelongsTo
