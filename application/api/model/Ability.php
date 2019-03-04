@@ -37,6 +37,14 @@ class Ability extends Model
     }
 
     /**
+     * 关联分类模型
+     * @return \think\model\relation\BelongsTo
+     */
+    public function cate()
+    {
+        return $this->belongsTo('AbilityCate','ability_id')->bind(['cate_name'=>'title']);
+    }
+    /**
      * 时间获取器
      * @param $value
      * @return false|string
@@ -97,6 +105,6 @@ class Ability extends Model
      */
     public function getDetail($id)
     {
-        return self::get($id);
+        return self::get($id,['cate']);
     }
 }

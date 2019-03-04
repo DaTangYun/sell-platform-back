@@ -34,7 +34,14 @@ class HelpMe extends Model
     {
         return date('Y-m-d H:i:s',$value);
     }
-
+    /**
+     * 关联分类模型
+     * @return \think\model\relation\BelongsTo
+     */
+    public function cate()
+    {
+        return $this->belongsTo('HelpMeCate','cate_id')->bind(['cate_name'=>'title']);
+    }
     /**
      * 图片获取器
      * @param $value
@@ -62,7 +69,7 @@ class HelpMe extends Model
         $title && $map['title'] = ['like', '%' . trim($title) . '%'];
         $flag  && $map['status'] = '2';
         $user_id > 0 && $map['user_id'] = $user_id;
-        return self::field(['content'],truee)->where($map)->order('weigh desc,id desc')->page($page,$limit)->select();
+        return self::field(['content'],true)->where($map)->order('weigh desc,id desc')->page($page,$limit)->select();
     }
 
     /**
@@ -91,6 +98,6 @@ class HelpMe extends Model
      */
     public function getDetail($id)
     {
-        return self::get($id);
+        return self::get($id,['cate']);
     }
 }
