@@ -58,7 +58,7 @@ class Cases extends Model
     public function getAllCases($page,$limit,$search,$user_id,$flag=true)
     {
         //构建查询
-        $query = self::field(['id','cover','title'])->page($page,$limit)->order(['weigh'=>'desc','id'=>'desc']);
+        $query = self::field(['id','cover','title','status'])->page($page,$limit)->order(['weigh'=>'desc','id'=>'desc']);
         //判断是否有搜索条件
         $query->where('title','like', '%'.$search.'%');
         //判断用户id
