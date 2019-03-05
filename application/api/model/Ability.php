@@ -74,8 +74,8 @@ class Ability extends Model
         $cate_id > 0 && $map['ability_id'] = $cate_id;
         //输出字段
         $field = [];
-        $flag  && $field = ['id','title','image','price','mobile','desc'];
-        return self::field($field)->where($map)->order(['weigh'=>'desc','id'=>'desc'])->page($page,$limit)->select();
+        $flag  && $field = ['id','title','image','price','mobile','desc','createtime','status','ability_id'];
+        return self::field($field)->with('cate')->where($map)->order(['weigh'=>'desc','id'=>'desc'])->page($page,$limit)->select();
     }
 
     /**
