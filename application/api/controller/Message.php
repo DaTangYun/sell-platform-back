@@ -135,7 +135,7 @@ class Message extends Api
     {
         //判断修改案例的id是否存在
         $row = $this->model->get($id);
-        if (!$row) $this->success('暂无数据');
+        if (!$row) $this->error('暂无数据');
         if ($this->request->isPost()) {
             //数据库字段 网页字段转换
             $params = [
