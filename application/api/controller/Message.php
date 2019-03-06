@@ -95,7 +95,10 @@ class Message extends Api
                 'mobile'            => 'mobile',
                 'province'          => 'province',
                 'city'              => 'city',
-                'area'              => 'area'
+                'area'              => 'area',
+                'province_code' => 'province_code',
+                'city_code'     => 'city_code',
+                'area_code'     => 'area_code'
             ];
             $param_data = $this->buildParam($params);
             //数据验证
@@ -144,7 +147,10 @@ class Message extends Api
                 'mobile'            => 'mobile',
                 'province'          => 'province',
                 'city'              => 'city',
-                'area'              => 'area'
+                'area'              => 'area',
+                'province_code' => 'province_code',
+                'city_code'     => 'city_code',
+                'area_code'     => 'area_code'
             ];
             $param_data = $this->buildParam($params);
             //数据验证

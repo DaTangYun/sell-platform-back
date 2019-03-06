@@ -88,14 +88,17 @@ class Topline extends Api
         if ($this->request->isPost()) {
             //数据库字段 网页字段转换
             $params = [
-                'title' => 'title',
+                'title'           => 'title',
                 'topline_cate_id' => 'topline_cate_id',
-                'cover' => 'cover',
-                'desc'  => 'desc',
-                'content' => 'content',
-                'province' => 'province',
-                'city' => 'city',
-                'area' => 'area'
+                'cover'           => 'cover',
+                'desc'            => 'desc',
+                'content'         => 'content',
+                'province'        => 'province',
+                'city'            => 'city',
+                'area'          => 'area',
+                'province_code' => 'province_code',
+                'city_code'     => 'city_code',
+                'area_code'     => 'area_code'
             ];
             $param_data = $this->buildParam($params);
             //数据验证
@@ -135,14 +138,17 @@ class Topline extends Api
         if (!$row) $this->success('暂无数据');
         if ($this->request->isPost()) {
             $params = [
-                'title' => 'title',
+                'title'           => 'title',
                 'topline_cate_id' => 'topline_cate_id',
-                'cover' => 'cover',
-                'desc'  => 'desc',
-                'content' => 'content',
-                'province' => 'province',
-                'city' => 'city',
-                'area' => 'area',
+                'cover'           => 'cover',
+                'desc'            => 'desc',
+                'content'         => 'content',
+                'province'        => 'province',
+                'city'            => 'city',
+                'area'          => 'area',
+                'province_code' => 'province_code',
+                'city_code'     => 'city_code',
+                'area_code'     => 'area_code'
             ];
             $param_data = $this->buildParam($params);
             //数据验证
