@@ -16,6 +16,20 @@ use think\Request;
 
 class User extends Model
 {
+    /**
+     * 图片修改器
+     * @param $value
+     * @return string
+     */
+    public function setAvatarAttr($value)
+    {
+        $ret = preg_match('/\/uploads\/[\w*\d\/.]*/',$value,$arr);
+        if ($ret) {
+            $value = $arr[0];
+        }
+        return $value;
+    }
+
     public function getAvatarAttr($value)
     {
         return Request::instance()->domain().$value;

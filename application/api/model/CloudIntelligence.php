@@ -18,6 +18,19 @@ class CloudIntelligence extends Model
 {
 
     /**
+     * 图片修改器
+     * @param $value
+     * @return string
+     */
+    public function setImageAttr($value)
+    {
+        $ret = preg_match('/\/uploads\/[\w*\d\/.]*/',$value,$arr);
+        if ($ret) {
+            $value = $arr[0];
+        }
+        return $value;
+    }
+    /**
      * 图片获取器
      * @param $value
      * @return string

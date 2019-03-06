@@ -25,6 +25,20 @@ class HelpMe extends Model
 
     protected $createTime = 'create_time';
     protected $updateTime = 'update_time';
+
+    /**
+     * 图片获取器
+     * @param $value
+     * @return string
+     */
+    public function setImageAttr($value)
+    {
+        $ret = preg_match('/\/uploads\/[\w*\d\/.]*/',$value,$arr);
+        if ($ret) {
+            $value = $arr[0];
+        }
+        return $value;
+    }
     /**
      * 时间获取器
      * @param $value

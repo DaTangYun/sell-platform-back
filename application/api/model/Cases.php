@@ -33,6 +33,19 @@ class Cases extends Model
      * @param $value
      * @return string
      */
+    public function setCoverAttr($value)
+    {
+        $ret = preg_match('/\/uploads\/[\w*\d\/.]*/',$value,$arr);
+        if ($ret) {
+            $value = $arr[0];
+        }
+        return $value;
+    }
+    /**
+     * 图片获取器
+     * @param $value
+     * @return string
+     */
     public function getCoverAttr($value)
     {
         return Request::instance()->domain().$value;
