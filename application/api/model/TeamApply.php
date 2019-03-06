@@ -25,10 +25,18 @@ class TeamApply extends Model
     protected $createTime = 'createtime';
     protected $updateTime = false;
     protected $hidden = [
-        'status',
         'user_id',
     ];
 
+    /**
+     * 时间获取器
+     * @param $value
+     * @return false|string
+     */
+    public function getCreatetimeAttr($value)
+    {
+        return date('Y-m-d',$value);
+    }
     /**
      * 带分页的团队成员
      * @param $page

@@ -88,5 +88,4 @@ class Team extends Model
     {
         return self::get($id);
     }
-
 }
