@@ -90,7 +90,7 @@ class HelpMe extends Api
             $title = $this->request->get('title', false);
             $user = $this->auth->getUser();
             $user_id = $user->id;
-            $cases = $this->model->getAllHelp($page, $limit, $title, true,$user_id);
+            $cases = $this->model->getAllHelp($page, $limit, $title, false,$user_id);
             $total = $this->model->getTotal($title, $user_id);
             $this->success('获取数据成功', compact('cases', 'total'));
         }
