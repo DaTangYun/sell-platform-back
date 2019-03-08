@@ -16,7 +16,7 @@ class User extends Api
 {
 
     protected $noNeedLogin = ['login', 'mobilelogin', 'register', 'resetpwd', 'changeemail', 'third','showme','showmeInfo'];
-    protected $noNeedRight = ['login', 'mobilelogin', 'register', 'resetpwd', 'changeemail', 'third','showme','showmeInfo','identy'];
+    protected $noNeedRight = ['login', 'mobilelogin', 'register', 'resetpwd', 'changeemail', 'third','showme','showmeInfo','identy','logout'];
 
     public function _initialize()
     {
