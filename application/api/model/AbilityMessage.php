@@ -54,7 +54,7 @@ class AbilityMessage extends Model
      */
     public function reply()
     {
-        return $this->hasMany('Reply','comment_id')->order('id desc');
+        return $this->hasMany('Reply','comment_id')->order('id asc');
     }
     
     /**
