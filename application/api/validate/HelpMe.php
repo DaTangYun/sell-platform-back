@@ -25,7 +25,7 @@ class HelpMe extends Validate
      */
     protected $rule = [
         'title'         => 'require',
-        'cate_id'     => 'require',
+        'cate_id'       => 'require',
         'image'         => 'require',
         'desc'          => 'require',
         'mobile'        => 'require|length:11',
@@ -36,6 +36,8 @@ class HelpMe extends Validate
         'start_time'    => 'require',
         'end_time'      => 'require',
         'contact'       => 'require',
+        'content'       => 'require'
+        
     ];
 
     /**
@@ -43,7 +45,7 @@ class HelpMe extends Validate
      */
     protected $message = [
         'title.require'     => '标题必须',
-        'cate_id.require' => '分类必须',
+        'cate_id.require'   => '分类必须',
         'image.require'     => '图片必须',
         'desc.require'      => '描述必须',
         'content.require'   => '内容必须',
@@ -55,8 +57,7 @@ class HelpMe extends Validate
         'area.require'      => '区域必须必须',
         'start_time.require' => '开始时间必须',
         'end_time.require'  => '结束时间必须',
-        'contact.require'   => '结束时间必须',
-
+        'contact.require'   => '联系人必须'
     ];
 
     /**
