@@ -49,13 +49,13 @@ class HelpMe extends Validate
         'image.require'     => '图片必须',
         'desc.require'      => '描述必须',
         'content.require'   => '内容必须',
-        'commission.require' => '佣金必须',
+        'commission.require'=> '佣金必须',
         'mobile.require'    => '手机号必须',
         'mobile.length'     => '手机号错误',
         'province.require'  => '省份必须',
         'city.require'      => '城市必须',
         'area.require'      => '区域必须必须',
-        'start_time.require' => '开始时间必须',
+        'start_time.require'=> '开始时间必须',
         'end_time.require'  => '结束时间必须',
         'contact.require'   => '联系人必须'
     ];

@@ -27,7 +27,7 @@ class HelpMe extends Model
     protected $updateTime = 'update_time';
 
     /**
-     * 图片获取器
+     * 图片修改器
      * @param $value
      * @return string
      */
@@ -39,6 +39,26 @@ class HelpMe extends Model
         }
         return $value;
     }
+
+    /**
+     * 开始时间修改器
+     * @param $value
+     * @return false|string
+     */
+    public function setStartTimeAttr($value)
+    {
+        return strtotime($value);
+    }
+    /**
+     * 结束时间修改器
+     * @param $value
+     * @return false|string
+     */
+    public function setEndTimeAttr($value)
+    {
+        return strtotime($value);
+    }
+
     /**
      * 时间获取器
      * @param $value
