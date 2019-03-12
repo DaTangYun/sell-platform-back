@@ -22,9 +22,6 @@ class Topline extends Model
     protected $updateTime = 'updatetime';
     protected $hidden = [
         'weigh',
-        'seo_titile',
-        'seo_keyword',
-        'seo_desc',
         'updatetime'
     ];
 
