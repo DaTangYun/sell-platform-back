@@ -183,6 +183,9 @@ class Ability extends Api
             if (!$validate->check($param_data)) {
                 $this->error($validate->getError());
             }
+            $param_data['seo_title'] = $param_data['title'];
+            $param_data['seo_keyword'] = $param_data['title'];
+            $param_data['seo_desc'] = $param_data['desc'];
             //当前用户id
             $user = $this->auth->getUser();
             $user_id = $user->id;

@@ -75,7 +75,7 @@ class Document extends Model
     public function getAllDocument($page,$limit,$title,$cate_id,$user_id,$flag = false)
     {
         //构建查询
-        $query = self::with(['cate','user'])->field(['id','title','cate_id','user_id','createtime']);
+        $query = self::with(['cate','user'])->field(['id','title','cate_id','user_id','url','createtime']);
         //判断是否有搜索条件
         $query->where('title','like', '%'.$title.'%');
         //判断文档分类

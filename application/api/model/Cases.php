@@ -22,9 +22,6 @@ class Cases extends Model
     protected $updateTime = 'updatetime';
     protected $hidden = [
         'weigh',
-        'seo_title',
-        'seo_keyword',
-        'seo_desc',
         'updatetime'
     ];
 
