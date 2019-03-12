@@ -35,4 +35,19 @@ class Config extends Api
     		$this->success('请求成功',compact('site'));
     	}
     }
+
+    /**
+     * 网站公共seo
+     */
+    public function seo()
+    {
+        if($this->request->isGet()){
+            $seo = [
+                'seo_title'    => config('site.seo_title'),
+                'seo_keyword'  => config('site.seo_keyword'),
+                'seo_desc'     => config('site.seo_desc')
+            ];
+    		$this->success('请求成功',compact('seo'));
+        }
+    }
 }
