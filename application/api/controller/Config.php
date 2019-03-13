@@ -89,7 +89,7 @@ class Config extends Api
                 if (!empty($id)) {
                     $detail = Db::name('Message')->where('id',$id)->field($field)->find();
                 }
-
+                break;
             //头条
             case 'topline':
                 $seo['seo_title']  = '头条·'.$seo['seo_title'];
